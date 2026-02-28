@@ -680,10 +680,11 @@ app = FastAPI()
 # Enable CORS for Frontend (Port 5173)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"], #Keep this as "*" for the initial deployment
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_credentials=True,
+    # allow_credentials=True,
+    allow_credentials=False, # Note: If allow_origins=["*"], then allow_credentials MUST be False, otherwise FastAPI will crash on startup.
 )
 
 # ==========================================

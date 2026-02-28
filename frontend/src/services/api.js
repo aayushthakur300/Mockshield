@@ -43,9 +43,12 @@ import axios from 'axios';
 
 // --- CONFIGURATION ---
 // We are routing everything to the Python AI Engine (Port 8000)
-const PYTHON_API = 'http://localhost:8000';
-const NODE_API = 'http://localhost:5000/api'; 
-
+// const PYTHON_API = 'http://localhost:8000';
+// const NODE_API = 'http://localhost:5000/api'; 
+// --- CONFIGURATION ---
+// VITE_PYTHON_API_URL will be injected by Render during deployment
+const PYTHON_API = import.meta.env.VITE_PYTHON_API_URL || 'http://localhost:8000';
+const NODE_API = import.meta.env.VITE_NODE_API_URL || 'http://localhost:5000/api';
 // ==========================================
 //  1. AI GENERATION & LOGIC
 // ==========================================
