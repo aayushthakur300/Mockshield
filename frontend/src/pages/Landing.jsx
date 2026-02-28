@@ -1,0 +1,445 @@
+import React, { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
+const Landing = () => {
+  const [isLight, setIsLight] = useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false); // New State for Mobile Menu
+
+  // --- THEME INITIALIZATION ---
+  useEffect(() => {
+    const stored = localStorage.getItem('ms_theme');
+    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    
+    // Apply theme to body to match original CSS selectors like 'body.light'
+    if (stored === 'light' || (!stored && !prefersDark)) {
+      setIsLight(true);
+      document.body.classList.add('light');
+    } else {
+      setIsLight(false);
+      document.body.classList.remove('light');
+    }
+  }, []);
+
+  // --- THEME TOGGLE HANDLER ---
+  const toggleTheme = () => {
+    const newTheme = !isLight;
+    setIsLight(newTheme);
+    localStorage.setItem('ms_theme', newTheme ? 'light' : 'dark');
+    
+    if (newTheme) {
+      document.body.classList.add('light');
+    } else {
+      document.body.classList.remove('light');
+    }
+  };
+
+  // --- MOBILE MENU TOGGLE HANDLER ---
+  const toggleMenu = () => {
+    setIsMenuOpen(!isMenuOpen);
+  };
+
+  // --- MOCKSHIELD FEATURES DATA (Mapped to 20 Project Capabilities) ---
+  const features = [
+    { icon: "fa-user-secret", title: "Forensic Interview Analysis", desc: "Deep-scan analysis detects behavioral red flags, hesitation markers, and answer shallowness using a 23-point forensic validation system." },
+    { icon: "fa-wand-magic-sparkles", title: "Auto-Refine & Coach", desc: "Automatically generates 100% compliant, 'Gold Standard' answers and translates vague responses into Principal Engineer level communication." },
+    { icon: "fa-database", title: "Session Database", desc: "Automatically save and reload previous interview sessions. Manage your history by reviewing past performance logs." },
+    { icon: "fa-file-pdf", title: "Professional Dossiers", desc: "Generate standardized PDF reports containing transcript forensics, psychometric scoring, and improvement roadmaps." },
+    { icon: "fa-language", title: "Domain Detection", desc: "Automatically identifies the technical domain (Java, React, System Design) from your resume without user input." },
+    { icon: "fa-triangle-exclamation", title: "Silent Killer Log", desc: "Pinpoints exact timestamps where confidence dropped or 'filler words' were used, mapped directly to the transcript." },
+    { icon: "fa-book-open", title: "Q&A Deep Dive", desc: "Explains the ideal answer step-by-step while filtering out fluff, hesitation, and non-technical noise." },
+    { icon: "fa-chart-line", title: "Aptitude Analysis", desc: "Provides best, average, and worst-case metrics for logical reasoning, problem-solving speed, and structural thinking." },
+    { icon: "fa-fingerprint", title: "Resume Integrity Monitor", desc: "Detects 'Resume Padding' by cross-referencing interview answers against claimed skills to flag high-risk discrepancies." },
+    { icon: "fa-check-double", title: "Fact-Check Engine", desc: "Validates technical accuracy, architectural soundness, and factual correctness of every user response." },
+    { icon: "fa-shield-halved", title: "Hiring Readiness Status", desc: "Displays real-time HIRE/NO-HIRE compliance status after full interview correction and validation." },
+    { icon: "fa-headset", title: "AI Career Coach", desc: "Context-aware floating assistant that understands the current interview state and provides instant strategic advice." },
+    { icon: "fa-globe", title: "Multi-Stack Support", desc: "Supports analysis, mock interviews, and resume auditing across 20+ tech stacks and engineering roles." },
+    { icon: "fa-star-half-stroke", title: "Competency Scoring", desc: "Assigns strict quality scores (0-100) based on Technical Depth, Communication, and Cultural Fit." },
+    { icon: "fa-glasses", title: "Communication Clarity", desc: "Evaluates how clean, understandable, and structured your spoken or written answers are for real-world scenarios." },
+    { icon: "fa-bomb", title: "Red Flag Prediction", desc: "Predicts interview failure points, defensive attitudes, and knowledge gaps before the actual interview." },
+    { icon: "fa-code", title: "STAR Method Structuring", desc: "Rewrites rambling answers into the clean, professional STAR (Situation, Task, Action, Result) format." },
+    { icon: "fa-bolt", title: "Real-Time Feedback UI", desc: "Live feedback with loading states, active listening indicators, and visual integrity status updates." },
+  ];
+
+  return (
+    <div className="landing-wrapper font-sans min-h-screen relative overflow-x-hidden">
+      {/* --- INJECTED CSS FOR EXACT FIDELITY --- */}
+      <style>{`
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Montserrat:wght@400;600;700;800;900&display=swap');
+
+        :root {
+            --bg-dark: #050505;
+            --accent: #ef4444;
+            --accent-glow: rgba(239, 68, 68, 0.6);
+            --text-main: #ffffff;
+            --text-muted: #e2e8f0;
+            --panel-bg: rgba(15, 15, 20, 0.6);
+            --border-color: rgba(239, 68, 68, 0.1);
+            --footer-bg: rgba(0, 0, 0, 0.9);
+        }
+
+        body.light {
+            --bg-dark: #f0f4f8;
+            --accent: #dc2626;
+            --accent-glow: rgba(220, 38, 38, 0.3);
+            --text-main: #111827;
+            --text-muted: #374151;
+            --panel-bg: #ffffff;
+            --border-color: rgba(220, 38, 38, 0.2);
+            --footer-bg: rgba(255, 255, 255, 0.95);
+        }
+
+        .landing-wrapper {
+            background-color: var(--bg-dark);
+            color: var(--text-main);
+            transition: background-color 0.4s ease, color 0.4s ease;
+            padding-bottom: 50px;
+        }
+
+        .danger-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image:
+                linear-gradient(var(--border-color) 1px, transparent 1px),
+                linear-gradient(90deg, var(--border-color) 1px, transparent 1px);
+            background-size: 40px 40px;
+            z-index: 0;
+            mask-image: radial-gradient(circle at center, black 40%, transparent 100%);
+            pointer-events: none;
+        }
+
+        .navbar-bg {
+            background: rgba(5, 5, 5, 0.85);
+            border-bottom: 1px solid var(--border-color);
+            backdrop-filter: blur(12px);
+            transition: all 0.4s ease;
+        }
+
+        body.light .navbar-bg {
+            background: rgba(255, 255, 255, 0.9);
+        }
+
+        .danger-text {
+            color: var(--accent);
+            animation: dangerPulse 3s infinite alternate;
+        }
+
+        @keyframes dangerPulse {
+            0% { text-shadow: 0 0 10px var(--accent-glow); }
+            50% { text-shadow: 0 0 25px var(--accent), 0 0 10px rgba(255, 255, 255, 0.5); }
+            100% { text-shadow: 0 0 10px var(--accent-glow); }
+        }
+
+        .btn-danger-glow {
+            background: linear-gradient(135deg, #991b1b 0%, var(--accent) 100%);
+            color: white;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 0 20px var(--accent-glow);
+            transition: all 0.3s ease;
+        }
+
+        .btn-danger-glow:hover {
+            transform: translateY(-3px) scale(1.05);
+            box-shadow: 0 0 40px var(--accent);
+        }
+
+        .feature-card {
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 12px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+            height: 100%;
+        }
+
+        .feature-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 25px var(--accent-glow);
+            transform: translateY(-5px);
+        }
+
+        .feature-icon-lg {
+            font-size: 2rem;
+            color: var(--accent);
+            margin-bottom: 1rem;
+        }
+
+        .code-preview {
+            font-family: 'JetBrains Mono', monospace;
+            background: var(--bg-dark);
+            border: 1px solid var(--border-color);
+            border-left: 3px solid var(--accent);
+            padding: 1.5rem;
+            border-radius: 8px;
+            color: var(--text-main);
+        }
+
+        .social-icon {
+            display: inline-flex;
+            width: 48px;
+            height: 48px;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: var(--panel-bg);
+            border: 1px solid var(--border-color);
+            color: var(--text-muted);
+            transition: all 0.3s ease;
+        }
+
+        .social-icon:hover {
+            color: var(--accent);
+            transform: scale(1.1);
+            box-shadow: 0 0 10px var(--accent-glow);
+        }
+
+        body.light .social-icon {
+            background: #ffffff;
+            border-color: #e5e7eb;
+            color: #4b5563;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+        }
+
+        body.light .social-icon:hover {
+            background: var(--accent);
+            color: white;
+            border-color: var(--accent);
+        }
+
+        /* MOBILE MENU STYLES */
+        .mobile-menu-overlay {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            width: 100%;
+            background: var(--panel-bg);
+            backdrop-filter: blur(15px);
+            border-bottom: 1px solid var(--border-color);
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            z-index: 49;
+            transform: translateY(-20px);
+            opacity: 0;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+
+        .mobile-menu-overlay.active {
+            transform: translateY(0);
+            opacity: 1;
+            pointer-events: auto;
+        }
+      `}</style>
+
+      {/* --- BACKGROUND GRID --- */}
+      <div className="danger-grid"></div>
+
+      {/* --- NAVIGATION --- */}
+      <nav className="navbar-bg fixed top-0 w-full z-50 px-6 py-4">
+        <div className="max-w-7xl mx-auto flex items-center justify-between">
+          <Link to="/" className="text-2xl font-black tracking-tighter uppercase flex items-center gap-2">
+            <span className="text-[var(--text-main)]">Mock<span className="danger-text">Shield</span></span>
+          </Link>
+
+          {/* DESKTOP MENU */}
+          <div className="hidden md:flex items-center gap-8 font-bold text-sm uppercase tracking-widest text-[var(--text-main)]">
+            <a href="#features" className="hover:text-red-500 transition duration-300">Features</a>
+            <a href="#demo" className="hover:text-red-500 transition duration-300">Analysis</a>
+            
+            {/* CTA: Dashboard */}
+            <Link to="/dashboard" className="text-red-500 hover:text-[var(--text-main)] transition duration-300 border border-red-500/30 px-3 py-1 rounded">
+              <i className="fa-solid fa-bolt mr-1"></i> Dashboard
+            </Link>
+          </div>
+
+          <div className="flex items-center gap-4">
+            {/* <button 
+                onClick={toggleTheme} 
+                aria-label="Toggle theme" 
+                className="p-2 rounded-md text-xl text-[var(--text-main)] hover:text-red-500 transition-colors"
+            >
+              <i className={`fa-solid ${isLight ? 'fa-sun' : 'fa-moon'}`}></i>
+            </button> */}
+            {/* MOBILE MENU TOGGLE BUTTON */}
+            <button 
+                className="md:hidden text-2xl text-red-500 hover:text-[var(--text-main)] transition-colors"
+                onClick={toggleMenu}
+            >
+              <i className={`fa-solid ${isMenuOpen ? 'fa-xmark' : 'fa-bars'}`}></i>
+            </button>
+          </div>
+        </div>
+      </nav>
+
+      {/* --- MOBILE MENU DROPDOWN --- */}
+      <div className={`mobile-menu-overlay md:hidden ${isMenuOpen ? 'active' : ''}`}>
+        <a 
+            href="#features" 
+            className="text-[var(--text-main)] text-xl font-bold uppercase tracking-widest hover:text-red-500 transition border-b border-[var(--border-color)] pb-2"
+            onClick={() => setIsMenuOpen(false)}
+        >
+            Features
+        </a>
+        <a 
+            href="#demo" 
+            className="text-[var(--text-main)] text-xl font-bold uppercase tracking-widest hover:text-red-500 transition border-b border-[var(--border-color)] pb-2"
+            onClick={() => setIsMenuOpen(false)}
+        >
+            Analysis
+        </a>
+        <Link 
+            to="/dashboard" 
+            className="text-red-500 text-xl font-bold uppercase tracking-widest hover:text-[var(--text-main)] transition flex items-center gap-2"
+            onClick={() => setIsMenuOpen(false)}
+        >
+            <i className="fa-solid fa-bolt"></i> Dashboard
+        </Link>
+      </div>
+
+      {/* --- HERO SECTION --- */}
+      <section className="relative pt-40 pb-20 min-h-screen flex items-center justify-center text-center px-6">
+        <div className="max-w-5xl mx-auto z-10">
+          <div className="inline-block px-4 py-1 mb-6 border border-red-500/30 rounded-full bg-red-900/10 text-red-400 text-xs font-bold tracking-widest uppercase animate-pulse">
+            v2.0 System Online
+          </div>
+
+          <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight text-[var(--text-main)]">
+            SUPREME AI <br />
+            <span className="danger-text">INTERVIEW ARCHITECT</span>
+          </h1>
+
+          <p className="text-[var(--text-muted)] text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-semibold">
+            Forensic interview simulation, resume gap analysis, and automated coaching. 
+            Persistent tracking, behavioral profiling, and professional PDF reports.
+          </p>
+
+          <div className="flex flex-col md:flex-row gap-6 justify-center">
+            {/* CTA: Launch Dashboard */}
+            <Link to="/dashboard" className="btn-danger-glow px-8 py-4 rounded-lg text-lg flex items-center justify-center gap-3">
+              <i className="fa-solid fa-microchip"></i> Launch MockShield
+            </Link>
+            
+            <a href="#features" className="px-8 py-4 rounded-lg text-lg font-bold border border-[var(--text-muted)] text-[var(--text-main)] hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white transition flex items-center justify-center gap-2">
+              Explore Features <i className="fa-solid fa-arrow-down"></i>
+            </a>
+          </div>
+        </div>
+      </section>
+
+      {/* --- FEATURES GRID (20 Cards) --- */}
+      <section id="features" className="py-24 bg-black/5 dark:bg-black/30">
+        <div className="max-w-7xl mx-auto px-6">
+          <div className="text-center mb-16">
+            <h2 className="text-3xl md:text-4xl font-black uppercase tracking-wide text-[var(--text-main)]">
+              System <span className="text-red-500">Capabilities</span>
+            </h2>
+            <div className="h-1 w-24 bg-red-600 mx-auto mt-4 rounded"></div>
+          </div>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {features.map((feature, index) => (
+              <div key={index} className="feature-card flex flex-col items-start">
+                <i className={`fa-solid ${feature.icon} feature-icon-lg`}></i>
+                <h3 className="text-xl font-bold text-[var(--text-main)] mb-3">{feature.title}</h3>
+                <p className="text-[var(--text-muted)] text-sm leading-relaxed font-medium">
+                  {feature.desc}
+                </p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- DEMO / ANALYSIS SECTION --- */}
+      <section id="demo" className="py-24 relative overflow-hidden">
+        <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-12 items-center">
+          
+          <div>
+            <h2 className="text-3xl font-bold mb-6 text-[var(--text-main)]">
+              Supreme AI <span className="text-red-500">LogicProbe</span>
+            </h2>
+            <p className="text-[var(--text-muted)] text-lg mb-6 leading-relaxed font-bold">
+              The LogicProbe engine performs a simultaneous 23-point security and compliance check, providing granular feedback on efficiency and integrity.
+            </p>
+            <ul className="space-y-4 text-[var(--text-muted)] font-semibold">
+              <li className="flex items-center gap-3">
+                <i className="fa-solid fa-check-circle text-green-500"></i>
+                <span>Psychometric & Behavioral Profiling</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <i className="fa-solid fa-check-circle text-green-500"></i>
+                <span>Resume Integrity & Skill Checks</span>
+              </li>
+              <li className="flex items-center gap-3">
+                <i className="fa-solid fa-check-circle text-green-500"></i>
+                <span>Detailed "Silent Killer" Detection</span>
+              </li>
+            </ul>
+            
+            <Link to="/dashboard" className="mt-8 inline-block text-red-400 font-bold hover:text-red-500 transition">
+              Initialize Forensic Simulation -&gt;
+            </Link>
+          </div>
+
+          {/* --- CODE PREVIEW (Mock Analysis JSON) --- */}
+          <div className="code-preview shadow-2xl shadow-red-900/20">
+            <div className="flex items-center gap-2 mb-4 border-b border-gray-800 pb-2">
+              <div className="w-3 h-3 rounded-full bg-red-500"></div>
+              <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
+              <div className="w-3 h-3 rounded-full bg-green-500"></div>
+              <span className="text-xs text-gray-500 ml-auto">analysis_result.json</span>
+            </div>
+            <code className="text-sm block">
+              <span className="block"><span className="text-purple-400">"candidate_assessment"</span>: <span className="text-yellow-400">{"{"}</span></span>
+              <span className="block pl-4"><span className="text-blue-400">"status"</span>: <span className="text-green-400">"READY_TO_HIRE"</span>,</span>
+              <span className="block pl-4"><span className="text-blue-400">"risk_factor"</span>: <span className="text-red-400">"LOW"</span>,</span>
+              <span className="block pl-4"><span className="text-blue-400">"flags"</span>: [</span>
+              <span className="block pl-8 text-gray-500">// Silent Killers Detected</span>
+              <span className="block pl-8"><span className="text-orange-400">"Hesitation_Latencies"</span>,</span>
+              <span className="block pl-8"><span className="text-orange-400">"Defensive_Tone"</span></span>
+              <span className="block pl-4">],</span>
+              <span className="block pl-4"><span className="text-blue-400">"score"</span>: <span className="text-green-400">92</span></span>
+              <span className="block"><span className="text-yellow-400">{"}"}</span></span>
+            </code>
+          </div>
+
+        </div>
+      </section>
+
+      {/* --- CONTACT SECTION --- */}
+      <section id="contact" className="py-16 border-t border-[var(--border-color)] bg-[var(--footer-bg)]">
+        <div className="max-w-7xl mx-auto px-6 text-center">
+          <h3 className="text-3xl font-black mb-8 text-[var(--text-main)]">
+            Connect with <span className="text-red-500">Us</span>
+          </h3>
+
+          <div className="flex items-center justify-center gap-6 mb-8">
+            {['github', 'linkedin-in', 'facebook-f', 'instagram'].map((icon) => (
+                <a key={icon} href="#" className="social-icon">
+                    <i className={`fab fa-${icon}`}></i>
+                </a>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* --- FIXED FOOTER --- */}
+      <footer className="fixed bottom-0 w-full z-50 bg-[var(--footer-bg)] border-t border-[var(--border-color)] py-2 text-center">
+        <div className="max-w-7xl mx-auto px-6">
+          <p className="text-[var(--text-muted)] text-sm font-bold">
+            © 2026 MockShield • All Rights Reserved • Developed by Aayush Thakur
+          </p>
+        </div>
+      </footer>
+
+    </div>
+  );
+};
+
+export default Landing;

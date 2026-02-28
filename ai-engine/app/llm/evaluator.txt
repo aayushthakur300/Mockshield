@@ -1,0 +1,333 @@
+import os
+import google.generativeai as genai
+import json
+import itertools
+import random
+import time
+import re
+from dotenv import load_dotenv
+
+# 1. Load Environment Variables
+load_dotenv()
+
+# 2. Check API Key & Configure Mock Mode
+api_key = os.getenv("GOOGLE_API_KEY")
+is_mock_mode = False
+
+if not api_key or ("AIzaSy" in api_key and len(api_key) < 10):
+    print("⚠️ SYSTEM STATUS: No valid Google API Key found. Running in SMART SIMULATION MODE.")
+    is_mock_mode = True
+else:
+    genai.configure(api_key=api_key)
+
+# 3. COMPREHENSIVE MODEL LIST (Round Robin Failover)
+ALL_MODELS = [
+    'models/gemini-2.0-flash',
+    'models/gemini-2.0-flash-001',
+    'models/gemini-flash-latest',
+    'models/gemini-flash-lite-latest',
+    'models/gemini-2.5-flash',
+    'models/gemini-2.5-flash-lite',
+    'models/gemini-robotics-er-1.5-preview',
+    'models/gemini-1.5-flash',
+    'models/gemini-1.5-flash-latest',
+    'models/gemini-1.5-flash-001',
+    'models/gemini-1.5-flash-002',
+    'models/gemini-1.5-flash-8b',
+    'models/gemini-1.5-flash-8b-latest',
+    'models/gemini-1.5-flash-8b-001',
+    'models/gemini-1.5-pro',
+    'models/gemini-1.5-pro-latest',
+    'models/gemini-1.5-pro-001',
+    'models/gemini-1.5-pro-002',
+    'models/gemini-1.0-pro',
+    'models/gemini-1.0-pro-latest',
+    'models/gemini-1.0-pro-001',
+    'models/gemini-pro',
+    'models/gemini-pro-vision',
+    'models/gemini-2.5-flash-preview-09-2025',
+    'models/gemini-2.5-flash-lite-preview-09-2025',
+    'models/gemini-2.5-flash-tts',
+    'models/gemini-2.5-pro',
+    'models/gemini-pro-latest',
+    'models/gemini-3-pro-preview',
+    'models/deep-research-pro-preview-12-2025',
+    'models/gemini-2.0-flash-lite',
+    'models/gemini-2.0-flash-lite-001',
+    'models/gemini-2.0-flash-lite-preview',
+    'models/gemini-2.0-flash-lite-preview-02-05',
+    'models/gemini-2.0-flash-exp',
+    'models/gemini-exp-1206',
+    'models/gemma-3-27b-it',
+    'models/gemma-3-12b-it',
+    'models/gemma-3-4b-it',
+    'models/gemma-3-1b-it',
+    'models/gemma-3n-e4b-it',
+    'models/gemma-3n-e2b-it',
+    'models/gemma-2-27b-it',
+    'models/gemma-2-9b-it',
+    'models/gemma-2-2b-it',
+    'models/gemini-2.5-flash-native-audio-dialog',
+    'models/nano-banana-pro-preview',
+    'models/aqa'
+]
+
+# Create an infinite cycle iterator to loop through models forever
+model_cycle = itertools.cycle(ALL_MODELS)
+
+def get_next_model():
+    """Returns the next model in the list (Round Robin)."""
+    model_name = next(model_cycle)
+    return model_name
+
+def clean_json_string(text):
+    """Sanitizes AI response to extract JSON."""
+    try:
+        # Remove markdown code blocks
+        text = text.replace("```json", "").replace("```", "")
+        
+        # Regex to find the JSON object { ... } or array [ ... ]
+        if text.strip().startswith("{"):
+            match = re.search(r'\{.*\}', text, re.DOTALL)
+            if match: return match.group(0)
+        elif text.strip().startswith("["):
+            match = re.search(r'\[.*\]', text, re.DOTALL)
+            if match: return match.group(0)
+        return text
+    except:
+        return text
+
+def generate_with_failover(prompt, max_retries=55):
+    """
+    Tries to generate content. If a model fails, it IMMEDIATELY switches 
+    to the next one in the list and tries again.
+    """
+    attempts = 0
+    while attempts < max_retries:
+        current_model = get_next_model()
+        print(f"🔄 Attempt {attempts+1}/{max_retries}: Trying model '{current_model}'...")
+        
+        try:
+            model = genai.GenerativeModel(current_model)
+            response = model.generate_content(prompt)
+            print(f"✅ SUCCESS using {current_model}")
+            return response.text
+            
+        except Exception as e:
+            print(f"❌ FAILED with {current_model}: {e}")
+            attempts += 1
+            time.sleep(0.5)
+            
+    raise Exception("All attempted models failed. API connectivity issue.")
+
+def generate_interview_questions(topic, difficulty="Senior", count=5):
+    """
+    SIMULATED DATABASE QUERY ENGINE.
+    Generates structured interview questions using the hybrid Senior Project Manager prompt.
+    """
+    if is_mock_mode:
+        return [{"id": 1, "type": "coding", "question": f"Mock Question regarding {topic}"}]
+
+    # Calculate mandatory distribution
+    coding_target = max(1, int(count * 0.4))  # Ensure at least 40% coding
+    theory_target = count - coding_target
+    unique_seed = random.randint(10000, 99999)
+
+    # EXTREME HYBRID MODEL PROMPT
+    prompt = f"""
+    ### SYSTEM ROLE: SENIOR PROJECT MANAGER & GLOBAL HEAD OF ENGINEERING TALENT
+    *** MODE: EXTREME HYBRID MODEL - DATABASE QUERY SIMULATION - {topic.upper()} (ID: {unique_seed}) ***
+        
+    YOUR ROLE: You are executing a SQL query against a database of 50,000+ {topic} questions.
+    QUERY: SELECT * FROM {topic}_questions WHERE difficulty = '{difficulty}' ORDER BY RANDOM() LIMIT {count};
+        
+    TASK: Return the result of this query as a strict JSON array.
+        
+    MANDATORY DISTRIBUTION:
+    1. **CODING CHALLENGES (Exactly {coding_target} Questions):**
+       - MUST be pure coding tasks suitable for {difficulty} level.
+       - Focus on algorithms, data structures, or system design scenarios.
+       
+    2. **THEORY & CONCEPTS (Exactly {theory_target} Questions):**
+       - Deep dive into internals of {topic}.
+       - Ask about trade-offs, underlying architecture, or best practices.
+       
+    PRE-FLIGHT CHECK:
+    - Are there exactly {coding_target} coding questions?
+    - Is the difficulty strictly {difficulty}?
+    - Are the questions designed to filter out average candidates?
+    
+    OUTPUT FORMAT (JSON ONLY):
+    [
+        {{
+            "id": 1,
+            "type": "coding",
+            "question": "..." 
+        }},
+        {{
+            "id": 2,
+            "type": "theory",
+            "question": "..." 
+        }}
+    ]
+    """
+
+    try:
+        raw_text = generate_with_failover(prompt)
+        cleaned_text = clean_json_string(raw_text)
+        return json.loads(cleaned_text)
+    except Exception as e:
+        print(f"❌ QUESTION GENERATION ERROR: {e}")
+        return []
+
+def evaluate_full_interview(transcript_data):
+    """
+    THE SENIOR EXPERT EVALUATOR.
+    Generates detailed Side-by-Side analysis using the Global Head of Talent persona.
+    """
+    # 1. Immediate Mock Mode Return
+    if is_mock_mode:
+        return {
+            "score": 75,
+            "summary": "Mock Mode: API Key missing. Good effort on basics.",
+            "silent_killers": ["Mock: Low energy"],
+            "roadmap": "Add API Key to see full analysis.",
+            "question_reviews": []
+        }
+
+    try:
+        # 2. Try Real AI Evaluation
+        transcript_text = json.dumps(transcript_data)
+
+        # FORENSIC GAP ANALYSIS PROMPT
+        prompt = f"""
+        ### ROLE & SYSTEM CONTEXT:
+        ACT AS: The 'Global Head of Engineering Talent' & 'Principal Technical Architect'.
+        CAPABILITIES: You possess 100% mastery of Technical Stacks (Code/Architecture), HR Behavioral Psychology, and Aptitude Evaluation.
+        TASK: Conduct a forensic "Gap Analysis" of the following candidate interview transcript.
+
+        ### TRANSCRIPT DATA:
+        {transcript_text}
+
+        ### ANALYSIS PROTOCOL:
+        For every question/answer pair, you must perform a "Side-by-Side" evaluation:
+        1. **The Reality Check:** specific technical flaws in the user's answer.
+        2. **The "Gold Standard":** How a Staff Engineer (L6) would answer this perfectly.
+        3. **The "Delta":** Exactly where the user needs to change their approach (Technical or Behavioral).
+
+        ### SCORING CRITERIA:
+        - **9-10:** Flawless. Mentions trade-offs, edge cases, and business impact.
+        - **6-8:** Correct but shallow. Textbook answer without real-world depth.
+        - **0-5:** Incorrect, vague, or dangerous engineering practices.
+
+        REQUIREMENTS:
+        1. **Global Score (0-100):** Be strict. 
+        2. **Silent Killers:** Detect subtle red flags (e.g., "Umm", lack of confidence, shallow knowledge).
+        3. **Per-Question Breakdown:** For EVERY question, provide:
+            - "question": The original question.
+            - "user_answer": The exact answer given.
+            - "score": 0-10 rating.
+            - "feedback": Critique of the user's answer.
+            - "ideal_answer": Write the perfect "90% Selection Chance" answer. (Principal Engineer level depth).
+
+        CRITICAL JSON FORMATTING RULES:
+        - Output ONLY valid JSON.
+        - **ESCAPE ALL BACKSLASHES:** If you write code with '\\n', you MUST write it as '\\\\n'. 
+        - Do not include any text before or after the JSON.
+
+        OUTPUT FORMAT (JSON ONLY):
+        {{
+            "score": <number>,
+            "summary": "<executive_summary_string>",
+            "silent_killers": ["<killer1>", "<killer2>"],
+            "roadmap": "<step_by_step_improvement_plan>",
+            "question_reviews": [
+                {{
+                    "question": "...",
+                    "user_answer": "...",
+                    "score": 8,
+                    "feedback": "...",
+                    "ideal_answer": "..."
+                }}
+            ]
+        }}
+        """
+
+        raw_text = generate_with_failover(prompt)
+        cleaned_text = clean_json_string(raw_text)
+        
+        # --- SELF-HEALING JSON PARSER (THE PERMANENT FIX) ---
+        try:
+            return json.loads(cleaned_text)
+        except json.JSONDecodeError:
+            print("⚠️ JSON Parse Error: Invalid Escape detected. Attempting Regex Repair...")
+            # Repair Strategy 1: Fix single backslashes that aren't valid escapes
+            repaired_text = re.sub(r'\\(?![/\\bfnrtu"])', r'\\\\', cleaned_text)
+            
+            try:
+                return json.loads(repaired_text)
+            except json.JSONDecodeError:
+                print("⚠️ Regex Repair failed. Attempting Nuclear Repair (Double-Escape All)...")
+                # Repair Strategy 2: Nuclear Option. Just double escape ALL backslashes.
+                nuclear_text = cleaned_text.replace('\\', '\\\\')
+                try:
+                    return json.loads(nuclear_text)
+                except:
+                     raise Exception("All JSON Repair strategies failed.")
+
+    except Exception as e:
+        print(f"❌ EVALUATION CRASHED: {e}")
+        print("⚠️ SWITCHING TO SMART OFFLINE FALLBACK ENGINE")
+        
+        # 3. CRASH-PROOF FALLBACK (Algorithmic Grading)
+        # This ensures the UI NEVER breaks, even if the AI outputs garbage.
+        total_words = 0
+        reviews = []
+        
+        for item in transcript_data:
+            ans = str(item.get('answer', ''))
+            word_count = len(ans.split())
+            total_words += word_count
+            
+            # Simple Heuristic Scoring
+            algo_score = 4
+            if word_count > 30: algo_score = 8
+            elif word_count > 10: algo_score = 6
+            
+            reviews.append({
+                "question": item.get('question', 'Unknown Question'),
+                "user_answer": ans,
+                "score": algo_score,
+                "feedback": "Offline Analysis: Answer recorded. Deep AI analysis unavailable due to network/parsing constraints.",
+                "ideal_answer": "A strong answer should define the core concept, provide a use case, and mention trade-offs."
+            })
+
+        # Calculate rough global score
+        final_score = min(88, max(40, int((total_words / (len(transcript_data) or 1)) * 2)))
+
+        return {
+            "score": final_score,
+            "summary": "Offline Assessment: The AI Engine is temporarily unreachable or returned invalid data. Scoring is based on response metrics.",
+            "silent_killers": ["Network/API Connectivity Issue", "Heuristic Analysis Mode"],
+            "roadmap": "Check backend logs for JSON formatting errors. Ensure Google API Key is active.",
+            "question_reviews": reviews
+        }
+
+# --- EXAMPLE USAGE BLOCK ---
+if __name__ == "__main__":
+    print("--- 1. Generating Questions (DB Simulation) ---")
+    questions = generate_interview_questions("Python", "Senior", 4)
+    print(json.dumps(questions, indent=2))
+    
+    # Simulate a user answering
+    transcript = []
+    for q in questions:
+        transcript.append({
+            "question": q['question'],
+            "answer": "I would use a hash map for O(1) lookups." # Mock answer
+        })
+        
+    print("\n--- 2. Evaluating Interview (Hiring Manager Persona) ---")
+    analysis = evaluate_full_interview(transcript)
+    print(json.dumps(analysis, indent=2))
+
