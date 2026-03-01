@@ -1,5 +1,118 @@
 [
     {
+        "id": "78770b71-66f6-480c-8d9c-a36f6cc2c79f",
+        "createdAt": "2026-03-01T23:35:26.260205",
+        "topic": "Behavioral & Culture Fit",
+        "total_score": 0,
+        "summary": "No summary.",
+        "full_data": {
+            "questions": [
+                {
+                    "question": "You discover that a high-priority project you inherited has been reporting inflated performance metrics to leadership for two quarters; detail your plan for corrective disclosure while maintaining team stability and organizational trust.",
+                    "answer": "[No Answer Provided]"
+                },
+                {
+                    "question": "Your team is fully committed to a P0 delivery, but an executive stakeholder demands an immediate pivot to an unproven feature that contradicts your current architectural roadmap; describe the framework you use to negotiate this conflict without compromising technical debt or team morale.",
+                    "answer": "[No Answer Provided]"
+                },
+                {
+                    "question": "A critical security mitigation is required that will result in a 20% latency increase for your core service, directly impacting top-tier client SLAs; walk through the decision-making process and the communication strategy for stakeholders and external customers.",
+                    "answer": "dddd"
+                },
+                {
+                    "question": "Two Principal Engineers are fundamentally deadlocked on a foundational infrastructure choice that will define the platform for years; explain the mechanism you use to drive a resolution when both technical arguments are valid but mutually exclusive.",
+                    "answer": "[No Answer Provided]"
+                },
+                {
+                    "question": "You identify a top-performing individual contributor whose behavior is toxic and causing attrition among senior talent; detail the intervention strategy and the specific metrics you use to decide between remediation and termination.",
+                    "answer": "[No Answer Provided]"
+                },
+                {
+                    "question": "During a rapid organizational scaling phase, you detect that silos are creating redundant systems and technical divergence; propose a structural redesign that restores cross-team alignment without halting ongoing development velocity.",
+                    "answer": "[No Answer Provided]"
+                },
+                {
+                    "question": "The Product team demands a release bypass of standard soak tests to meet a competitive market window; analyze the risk-reward tradeoff and specify the operational guardrails you would enforce to mitigate potential production outages.",
+                    "answer": "[No Answer Provided]"
+                },
+                {
+                    "question": "Internal data shows a significant decline in psychological safety within your organization despite hitting all KPIs; describe your diagnostic approach to identify the systemic cause and the policy changes you would implement to restore culture.",
+                    "answer": "[No Answer Provided]"
+                }
+            ],
+            "topic": "Behavioral & Culture Fit",
+            "totalScore": 1,
+            "overallFeedback": "This candidate provided a near-zero response rate, signaling a catastrophic failure in engagement and professional maturity. The single non-empty answer ('dddd') indicates a disregard for the technical evaluation process and an absence of leadership communication skills. Improvement Advice: 1. Master the STAR (Situation, Task, Action, Result) method to structure high-stakes engineering responses. 2. Develop a personal framework for risk assessment and stakeholder management. 3. Study architectural trade-offs, specifically the balance between security patches and system latency.",
+            "roadmap": "1. Conduct a deep dive into Engineering Leadership principles (e.g., 'The Manager's Path' by Camille Fournier). 2. Practice mock interviews for L6+ roles focusing on organizational conflict and technical debt. 3. Re-evaluate commitment to the interview process to ensure professional representation.",
+            "question_reviews": [
+                {
+                    "question": "You discover that a high-priority project you inherited has been reporting inflated performance metrics to leadership for two quarters; detail your plan for corrective disclosure while maintaining team stability and organizational trust.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "The candidate failed to address a critical integrity and leadership crisis. A principal level candidate must demonstrate a methodology for auditing data discrepancies and managing upward communication regarding failure.",
+                    "ideal_answer": "I would first perform a forensic audit to establish the delta between reported and actual metrics. Next, I would prepare a 'State of the Union' report for leadership, owning the discrepancy immediately but framing it with a data-backed corrective roadmap. To maintain team stability, I would hold a blameless retrospective to identify why the inflation occurred\u2014distinguishing between intentional deception and systemic measurement errors\u2014and implement automated, immutable dashboarding to restore objective trust."
+                },
+                {
+                    "question": "Your team is fully committed to a P0 delivery, but an executive stakeholder demands an immediate pivot to an unproven feature that contradicts your current architectural roadmap; describe the framework you use to negotiate this conflict without compromising technical debt or team morale.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "No response provided. This question tests the 'push-back' capability and the ability to manage the 'Iron Triangle' of software development.",
+                    "ideal_answer": "I use a 'Cost of Delay' and 'Opportunity Cost' framework. I would present a visual impact analysis showing how the pivot affects the P0 timeline and increases technical debt (the 'Shadow Backlog'). I would propose a middle ground, such as a time-boxed 'Discovery Spike' or a Limited Beta for the new feature, ensuring the core architecture remains intact while satisfying the stakeholder's need for market validation."
+                },
+                {
+                    "question": "A critical security mitigation is required that will result in a 20% latency increase for your core service, directly impacting top-tier client SLAs; walk through the decision-making process and the communication strategy for stakeholders and external customers.",
+                    "user_answer": "dddd",
+                    "score": 0,
+                    "feedback": "The candidate provided a gibberish response. This indicates a total lack of seriousness regarding critical trade-offs between security and performance.",
+                    "ideal_answer": "Security is a non-negotiable P0. My process involves profiling the mitigation to identify if the 20% latency can be offset by caching or query optimization elsewhere. Communication-wise, I would work with Legal and Account Management to draft a transparent notice to clients, framing the latency as a 'Security Hardening' update. Internally, I would adjust the SLIs/SLOs to reflect the new baseline and prioritize performance optimization in the next sprint to claw back the lost 20%."
+                },
+                {
+                    "question": "Two Principal Engineers are fundamentally deadlocked on a foundational infrastructure choice that will define the platform for years; explain the mechanism you use to drive a resolution when both technical arguments are valid but mutually exclusive.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "The candidate failed to demonstrate conflict resolution or technical arbitration skills.",
+                    "ideal_answer": "I employ a 'Decision Matrix' evaluating both options against long-term maintenance, scalability, and hiring ease. If the deadlock remains, I mandate a 48-hour 'Proof of Concept' for both approaches. As the final arbiter, I select the 'One-Way Door' vs 'Two-Way Door' path; if it's a reversible choice, we pick one and move; if it's irreversible, I bring in an external Technical Advisory Board to provide a third-party audit before I make the final executive call."
+                },
+                {
+                    "question": "You identify a top-performing individual contributor whose behavior is toxic and causing attrition among senior talent; detail the intervention strategy and the specific metrics you use to decide between remediation and termination.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "No response. This is a crucial 'Human Capital' question regarding the preservation of engineering culture.",
+                    "ideal_answer": "I follow the 'No Brilliants Jerks' policy. Intervention involves a Radical Candor 1-on-1 where the behavior's impact on the team is explicitly mapped to business risk. Metrics for remediation include 'Peer Review Sentiment' and 'Collaborative Velocity.' If attrition or negative feedback continues after a 30-day PIP focused solely on soft skills, I terminate. The cost of replacing multiple senior engineers outweighs the output of one toxic contributor."
+                },
+                {
+                    "question": "During a rapid organizational scaling phase, you detect that silos are creating redundant systems and technical divergence; propose a structural redesign that restores cross-team alignment without halting ongoing development velocity.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "Candidate failed to address systemic organizational debt.",
+                    "ideal_answer": "I would implement a 'Guild and Chapter' model to facilitate cross-team knowledge sharing. To address redundancy, I would establish a 'Common Platform' team responsible for shared libraries and infrastructure-as-code. This allows feature teams to remain autonomous while adhering to a centralized RFC (Request for Comments) process for any new foundational architectural changes, ensuring alignment without the bottleneck of a centralized approval committee."
+                },
+                {
+                    "question": "The Product team demands a release bypass of standard soak tests to meet a competitive market window; analyze the risk-reward tradeoff and specify the operational guardrails you would enforce to mitigate potential production outages.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "No response. This tests the ability to manage risk in high-pressure delivery environments.",
+                    "ideal_answer": "I would quantify the 'Blast Radius' of a failure. If the bypass is approved, I enforce three guardrails: 1. A staged rollout (Canary) starting at 1%. 2. An immediate, automated rollback trigger based on 5xx error spikes. 3. A 'Feature Flag' implementation to kill the feature without a redeploy. I would sign off only if the Product team accepts formal 'Risk Ownership' in the incident management log."
+                },
+                {
+                    "question": "Internal data shows a significant decline in psychological safety within your organization despite hitting all KPIs; describe your diagnostic approach to identify the systemic cause and the policy changes you would implement to restore culture.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "The candidate failed to address the 'Silent Killer' of engineering organizations: declining psychological safety.",
+                    "ideal_answer": "I would use anonymous 'Fearless Organization' surveys to benchmark against Amy Edmondson's 4 dimensions of safety. Diagnostically, I look for 'Silence at Post-mortems' as a key red flag. Policies I'd implement include: 1. Blameless Post-mortems where leadership owns systemic failures. 2. 'Failure Fridays' to celebrate learning from bugs. 3. Transparency in decision-making logs to reduce the 'black box' perception of leadership choices."
+                }
+            ],
+            "silent_killers": [
+                "Complete disengagement",
+                "Non-sensical input (Keyboard mashing)",
+                "Zero ownership of complex scenarios",
+                "Lack of professional accountability"
+            ],
+            "integrity_score": 60,
+            "violations_count": 4
+        }
+    },
+    {
         "id": "e7b802d1-3b05-4f17-9e83-37cf196b91b8",
         "createdAt": "2026-03-01T18:55:51.348977",
         "topic": "Behavioral & Culture Fit",
