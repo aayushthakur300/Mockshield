@@ -2,21 +2,23 @@ import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 const Landing = () => {
-  const [isLight, setIsLight] = useState(false);
-  const [isMenuOpen, setIsMenuOpen] = useState(false); // New State for Mobile Menu
+  // COMPULSORY DEFAULT: Start in light mode
+  const [isLight, setIsLight] = useState(true);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   // --- THEME INITIALIZATION ---
   useEffect(() => {
     const stored = localStorage.getItem('ms_theme');
-    const prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
     
-    // Apply theme to body to match original CSS selectors like 'body.light'
-    if (stored === 'light' || (!stored && !prefersDark)) {
-      setIsLight(true);
-      document.body.classList.add('light');
-    } else {
+    // COMPULSORY LIGHT MODE: Force light mode unless they explicitly saved 'dark'
+    if (stored === 'dark') {
       setIsLight(false);
       document.body.classList.remove('light');
+    } else {
+      setIsLight(true);
+      document.body.classList.add('light');
+      // Save the default to local storage just in case
+      if (!stored) localStorage.setItem('ms_theme', 'light');
     }
   }, []);
 
@@ -176,6 +178,7 @@ const Landing = () => {
             padding: 1.5rem;
             border-radius: 8px;
             color: var(--text-main);
+            transition: background-color 0.4s ease, color 0.4s ease;
         }
 
         .social-icon {
@@ -259,13 +262,15 @@ const Landing = () => {
           </div>
 
           <div className="flex items-center gap-4">
-            {/* <button 
+             {/* THE THEME TOGGLE BUTTON (UNCOMMENTED AND ACTIVE) */}
+             <button 
                 onClick={toggleTheme} 
                 aria-label="Toggle theme" 
                 className="p-2 rounded-md text-xl text-[var(--text-main)] hover:text-red-500 transition-colors"
             >
-              <i className={`fa-solid ${isLight ? 'fa-sun' : 'fa-moon'}`}></i>
-            </button> */}
+              <i className={`fa-solid ${isLight ? 'fa-moon' : 'fa-sun'}`}></i>
+            </button> 
+            
             {/* MOBILE MENU TOGGLE BUTTON */}
             <button 
                 className="md:hidden text-2xl text-red-500 hover:text-[var(--text-main)] transition-colors"

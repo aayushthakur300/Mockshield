@@ -1,5 +1,62 @@
 [
     {
+        "id": "649b7337-c80a-4429-9559-6b9c6e4ec466",
+        "createdAt": "2026-03-01T15:10:56.847851",
+        "topic": "Database Management (SQL/NoSQL)",
+        "total_score": 0,
+        "summary": "No summary.",
+        "full_data": {
+            "questions": [
+                {
+                    "question": "Compare the performance impact of a B-Tree index versus a Hash index when executing range-based queries on a sorted timestamp column.",
+                    "answer": "[No Answer Provided]"
+                },
+                {
+                    "question": "Construct a SQL query to identify duplicate user accounts based on matching email addresses while ensuring the record with the earliest creation date is preserved.",
+                    "answer": "[No Answer Provided]"
+                },
+                {
+                    "question": "Describe a scenario where using the 'Read Committed' isolation level would result in a non-repeatable read anomaly and how it impacts data integrity in a financial ledger.",
+                    "answer": "[No Answer Provided]"
+                }
+            ],
+            "topic": "Database Management (SQL/NoSQL)",
+            "totalScore": 0,
+            "overallFeedback": "CRITICAL FAILURE: The candidate provided zero input for all technical queries, representing a 100% knowledge gap or a total refusal to engage with the assessment. This is an automatic disqualification for any engineering role.\\n1. Immediately prioritize learning RDBMS internals, specifically how B-Trees facilitate range scans compared to Hash maps.\\n2. Practice window functions like ROW_NUMBER() to handle data deduplication tasks efficiently.\\n3. Deep dive into ACID properties to understand how isolation levels prevent data corruption in high-stakes environments like fintech.",
+            "roadmap": "1. Database Fundamentals: Re-learn B-Tree and Hash index structures (O-notation and storage layouts). 2. SQL Mastery: Practice DML operations involving CTEs and window functions for data cleaning. 3. Concurrency Theory: Study the ANSI SQL isolation levels (Read Uncommitted to Serializable) and their specific anomalies (Dirty Reads, Non-repeatable Reads, Phantoms). 4. Mock Interviewing: Practice vocalizing technical trade-offs even when uncertain to demonstrate problem-solving frameworks.",
+            "question_reviews": [
+                {
+                    "question": "Compare the performance impact of a B-Tree index versus a Hash index when executing range-based queries on a sorted timestamp column.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "The candidate failed to identify that a B-Tree is the only viable option for range-based queries due to its sorted leaf nodes. Absence of this knowledge suggests a lack of understanding of fundamental O(log n) search patterns vs O(1) point lookups.",
+                    "ideal_answer": "A B-Tree index is essential for range-based queries because it maintains data in a sorted tree structure, allowing for O(log n) search time to find the range start and a sequential scan of the leaf nodes (linked list) to retrieve the rest. In contrast, a Hash index uses a hash function for O(1) point lookups but provides no ordering, making it entirely ineffective for range queries as it would require a full table scan. For a timestamp column, a B-Tree enables efficient 'BETWEEN' or 'greater than' operations by leveraging the physical order of the index."
+                },
+                {
+                    "question": "Construct a SQL query to identify duplicate user accounts based on matching email addresses while ensuring the record with the earliest creation date is preserved.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "Failure to provide a basic deduplication query indicates a lack of proficiency with standard SQL (DML) and window functions, which are daily requirements for data integrity tasks.",
+                    "ideal_answer": "The most efficient approach uses a Common Table Expression (CTE) with a window function: \\nWITH DuplicateRows AS (\\n  SELECT id, ROW_NUMBER() OVER (PARTITION BY email ORDER BY created_at ASC) as rank\\n  FROM users\\n)\\nDELETE FROM users WHERE id IN (SELECT id FROM DuplicateRows WHERE rank > 1);\\nThis identifies groups of identical emails, ranks them by creation date, and removes all but the first (rank 1) in a single atomic operation."
+                },
+                {
+                    "question": "Describe a scenario where using the 'Read Committed' isolation level would result in a non-repeatable read anomaly and how it impacts data integrity in a financial ledger.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "The candidate missed the critical distinction between read-consistency and transaction isolation. In a financial context, this ignorance leads to 'phantom' balances or race conditions during auditing.",
+                    "ideal_answer": "In 'Read Committed', shared locks are released as soon as the SELECT operation completes, rather than held until the transaction ends. Scenario: Transaction A reads an account balance ($1000). Transaction B then updates that same balance to $500 and commits. If Transaction A reads the balance again within the same transaction, it will see $500 (a non-repeatable read). In a financial ledger, this is catastrophic during a trial balance report where the total sum of assets might change mid-calculation, leading to inconsistent reports and failure to satisfy the 'Consistency' pillar of ACID."
+                }
+            ],
+            "silent_killers": [
+                "Complete non-responsiveness",
+                "Total lack of technical baseline",
+                "Zero ownership of the interview process"
+            ],
+            "integrity_score": 80,
+            "violations_count": 2
+        }
+    },
+    {
         "id": "e3629da3-8a79-4a67-8fad-b4e10dde3c15",
         "createdAt": "2026-02-28T18:43:57.083221",
         "topic": "Computer Networks",
