@@ -963,12 +963,12 @@ app = FastAPI()
 app.add_middleware(
     CORSMiddleware,
     allow_origins=[
-        "https://mockshield.vercel.app", # <-- VERCEL LIVE URL
+        "https://mockshield.vercel.app", # <-- VERCEL LIVE URL MUST BE HERE
         "http://localhost:5173"          # <-- VITE LOCALHOST
     ],
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_credentials=True,              # <-- CRITICAL: MUST BE TRUE FOR VERCEL
+    allow_credentials=True,              # <-- CRITICAL: MUST BE TRUE TO ACCEPT REQUESTS FROM VERCEL
 )
 
 # ==========================================
