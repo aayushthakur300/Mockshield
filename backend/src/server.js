@@ -38,21 +38,26 @@ app.use(express.json());
 // 3. Strict CORS Configuration (Vercel <-> Render)
 app.use(cors({
   origin: [
-    'https://mockshield-frontend.vercel.app', // <-- MAKE SURE THIS MATCHES YOUR VERCEL URL EXACTLY
-    'http://localhost:5173',                  // Local Vite dev
-    'http://localhost:3000'                   // Local standard React
+    'https://mockshield.vercel.app', // <-- YOUR EXACT VERCEL URL
+    'http://localhost:5173',         // Local Vite dev
+    'http://localhost:3000'          // Local standard React
   ],
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  credentials: true                           // Required for auth tokens/cookies
+  credentials: true                  // Required for auth tokens/cookies
 }));
 
-// 4. Routes
+// 4. Health Check Route (Fixes the "Cannot GET /" error)
+app.get('/', (req, res) => {
+  res.send('Mockshield Node API is running! 🚀');
+});
+
+// 5. Routes
 app.use('/api/auth', require('./routes/auth.routes'));
 app.use('/api/interview', require('./routes/interview.routes'));
 
-// 5. REGISTER SILENT KILLER (Must be last)
+// 6. REGISTER SILENT KILLER (Must be last)
 app.use(errorLogger);
 
-// 6. Start Server
+// 7. Start Server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => console.log(`🚀 Server running on port ${PORT}`));
