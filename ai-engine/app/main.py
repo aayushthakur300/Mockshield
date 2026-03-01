@@ -641,6 +641,288 @@
 #     uvicorn.run(app, host="0.0.0.0", port=8000)
 # -----------------------------------------------------------------------
 # 28 feb session added
+# import sys
+# import os
+# # --- 1. FORCE PATH TO CURRENT DIRECTORY (Crucial for imports) ---
+# sys.path.append(os.path.dirname(os.path.abspath(__file__)))
+
+# from fastapi import FastAPI, Request, HTTPException
+# from fastapi.middleware.cors import CORSMiddleware
+# from pydantic import BaseModel
+# import json
+# import uuid
+# import traceback  # <--- CRITICAL IMPORT FOR DEBUGGING
+# from datetime import datetime
+
+# # --- 2. IMPORT AI ENGINES ---
+# try:
+#     # Resume Engines
+#     from app.llm.resume_generator import generate_resume_questions_wrapper
+#     from app.llm.resume_evaluator import evaluate_resume_session, generate_with_failover
+    
+#     # Standard Mock Engines
+#     from app.llm.generator import generate_questions_ai 
+#     from app.llm.evaluator import evaluate_full_interview
+    
+#     print("✅ AI Engines Imported Successfully")
+# except ImportError as e:
+#     print(f"⚠️ Import Warning: {e}")
+#     traceback.print_exc() # Print why import failed
+#     # Dummies to prevent server crash if files are missing
+#     def generate_resume_questions_wrapper(*args, **kwargs): return []
+#     def evaluate_resume_session(*args, **kwargs): return {"score": 0, "summary": "Import Error"}
+#     def generate_questions_ai(*args, **kwargs): return []
+#     def evaluate_full_interview(*args, **kwargs): return {"score": 0, "summary": "Import Error"}
+#     def generate_with_failover(*args): return "AI Unavailable"
+
+# app = FastAPI()
+
+# # Enable CORS for Frontend (Port 5173)
+# app.add_middleware(
+#     CORSMiddleware,
+#     allow_origins=["*"], #Keep this as "*" for the initial deployment
+#     allow_methods=["*"],
+#     allow_headers=["*"],
+#     # allow_credentials=True,
+#     allow_credentials=False, # 
+# )
+
+# # ==========================================
+# #  DATABASE UTILS (JSON FILE)
+# # ==========================================
+# DB_FILE = "db.json"
+
+# def load_db():
+#     if not os.path.exists(DB_FILE): return []
+#     try:
+#         with open(DB_FILE, "r") as f: return json.load(f)
+#     except: return []
+
+# def save_db(data):
+#     with open(DB_FILE, "w") as f: json.dump(data, f, indent=4)
+
+# # ==========================================
+# #  DATA MODELS
+# # ==========================================
+# class ResumeGenRequest(BaseModel):
+#     resume_text: str
+#     domain: str
+#     yoe: int = 1
+#     count: int = 5
+
+# class GeneralGenRequest(BaseModel):
+#     topic: str
+#     difficulty: str
+#     count: int
+#     round_type: str = "Technical" 
+
+# class EvaluationRequest(BaseModel):
+#     transcript: list
+#     domain: str
+#     experience_level: str
+
+# class StandardEvalRequest(BaseModel):
+#     transcript: list
+
+# class ChatRequest(BaseModel):
+#     message: str
+#     context: dict = {}
+
+# # ==========================================
+# #  ROUTES
+# # ==========================================
+
+# @app.get("/")
+# def health_check():
+#     return {"status": "MockShield AI Online", "port": 8000}
+
+# # --- 1. RESUME GENERATION (WITH TRACEBACK) ---
+# @app.post("/generate_resume_questions")
+# async def generate_resume_endpoint(req: ResumeGenRequest):
+#     print(f"📄 GENERATING RESUME QUESTIONS: {req.domain} ({req.yoe} YOE)")
+#     try:
+#         questions = generate_resume_questions_wrapper(
+#             resume_text=req.resume_text,
+#             domain=req.domain,
+#             yoe=req.yoe,
+#             count=req.count
+#         )
+#         return {"questions": questions}
+#     except Exception as e:
+#         print(f"❌ Resume Generation Error: {e}")
+#         print("vvvvvvvvvv TRACEBACK vvvvvvvvvv")
+#         traceback.print_exc()  # <--- THIS PRINTS THE REAL ERROR
+#         print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+#         # Return empty list to trigger Frontend Emergency Fallback
+#         return {"questions": []} 
+
+# # --- 2. STANDARD MOCK GENERATION (WITH TRACEBACK) ---
+# @app.post("/generate")
+# async def generate_general_endpoint(req: GeneralGenRequest):
+#     print(f"🤖 GENERATING MOCK QUESTIONS: {req.topic}")
+#     try:
+#         questions = generate_questions_ai(
+#             topic=req.topic,
+#             difficulty=req.difficulty,
+#             count=req.count,
+#             round_type=req.round_type
+#         )
+#         return {"questions": questions}
+#     except Exception as e:
+#         print(f"❌ Mock Generation Error: {e}")
+#         print("vvvvvvvvvv TRACEBACK vvvvvvvvvv")
+#         traceback.print_exc() # <--- DEBUGGING ENABLED
+#         print("^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+#         return {"questions": []}
+
+# # --- 3. RESUME EVALUATION (WITH TRACEBACK) ---
+# @app.post("/evaluate_resume_session")
+# async def evaluate_resume_endpoint(req: EvaluationRequest):
+#     print(f"⚖️ EVALUATING RESUME SESSION: {req.domain}")
+#     try:
+#         feedback = evaluate_resume_session(
+#             transcript_data=req.transcript,
+#             field=req.domain,
+#             experience=req.experience_level
+#         )
+#         return feedback
+#     except Exception as e:
+#         print(f"❌ Resume Evaluation Error: {e}")
+#         traceback.print_exc() # <--- DEBUGGING ENABLED
+#         return {"error": "Evaluation failed"}
+
+# # --- 4. STANDARD EVALUATION (WITH TRACEBACK) ---
+# @app.post("/evaluate_session")
+# async def evaluate_session_endpoint(req: StandardEvalRequest):
+#     print("⚖️ EVALUATING STANDARD SESSION")
+#     try:
+#         feedback = evaluate_full_interview(req.transcript)
+#         return feedback
+#     except Exception as e:
+#         print(f"❌ Standard Evaluation Error: {e}")
+#         traceback.print_exc() # <--- DEBUGGING ENABLED
+#         return {"score": 0, "summary": "Evaluation Error"}
+
+# # --- 5. CHAT COACH (WITH TRACEBACK) ---
+# @app.post("/chat")
+# def chat_endpoint(req: ChatRequest):
+#     try:
+#         # 1. Parse Context 
+#         topic = req.context.get("topic", "General Interview")
+#         score = req.context.get("score", "N/A")
+#         page = req.context.get("page", "Dashboard")
+
+#         # 2. THE POWER PROMPT
+#         prompt = f"""
+#         ### SYSTEM ROLE:
+#         You are the **MockShield Forensic Career Coach**. 
+#         You are an elite Technical Hiring Manager.
+
+#         ### SESSION CONTEXT:
+#         - **Current Page:** {page}
+#         - **Interview Topic:** {topic}
+#         - **Candidate Score:** {score}/100
+
+#         ### USER QUESTION:
+#         "{req.message}"
+
+#         ### INSTRUCTIONS:
+#         1. **Context-Aware:** Explain score {score} gaps in {topic}.
+#         2. **Technical Specificity:** Provide actionable tips for **{topic}**.
+#         3. **Tone:** Professional, encouraging, but strict.
+#         4. **Constraint:** Keep your answer **under 4 sentences**.
+#         """
+
+#         # 3. Call AI
+#         response_text = generate_with_failover(prompt)
+#         return {"reply": response_text}
+
+#     except Exception as e:
+#         print(f"❌ CHAT ERROR: {e}")
+#         traceback.print_exc() # <--- DEBUGGING ENABLED
+#         return {"reply": "I'm analyzing your data but hit a network snag. Please try asking again in a moment."}
+
+# # ==========================================
+# #  DB ROUTES (HISTORY)
+# # ==========================================
+# @app.post("/interviews")
+# async def save_interview(request: Request):
+#     try:
+#         data = await request.json()
+#         db = load_db()
+        
+#         new_record = {
+#             "id": str(uuid.uuid4()),
+#             "createdAt": datetime.now().isoformat(),
+#             "topic": data.get("topic", "Interview Session"), 
+#             "total_score": data.get("score", 0), 
+#             "summary": data.get("summary", "No summary."),
+#             "full_data": data 
+#         }
+        
+#         db.insert(0, new_record) 
+#         save_db(db)
+#         print(f"💾 Saved Session: {new_record['id']}")
+#         return {"message": "Saved", "id": new_record["id"]}
+#     except Exception as e:
+#         print(f"❌ Save DB Error: {e}")
+#         traceback.print_exc()
+#         return {"error": "Failed to save session"}
+
+# @app.get("/interviews")
+# async def get_interviews():
+#     try:
+#         return load_db()
+#     except Exception as e:
+#         print(f"❌ Read DB Error: {e}")
+#         traceback.print_exc()
+#         return []
+
+# @app.delete("/interviews/{id}")
+# async def delete_interview(id: str):
+#     try:
+#         db = load_db()
+#         new_db = [item for item in db if item["id"] != id]
+        
+#         if len(db) == len(new_db):
+#             raise HTTPException(status_code=404, detail="Session not found")
+        
+#         save_db(new_db)
+#         return {"message": "Deleted successfully"}
+#     except Exception as e:
+#         print(f"❌ Delete DB Error: {e}")
+#         traceback.print_exc()
+#         return {"error": "Failed to delete"}
+
+# # --- NEW: CLEAR ALL HISTORY ENDPOINT ---
+# @app.delete("/api/sessions/clear")
+# async def clear_all_history():
+#     try:
+#         # Overwrite the JSON file with an empty list
+#         save_db([])
+#         print("🗑️ All interview history cleared successfully.")
+#         return {"status": "success", "message": "All interview history permanently deleted."}
+#     except Exception as e:
+#         print(f"❌ Clear All DB Error: {e}")
+#         traceback.print_exc()
+#         raise HTTPException(status_code=500, detail="Failed to clear history")
+
+# # --- STARTUP ---
+# # if __name__ == "__main__":
+# #     import uvicorn
+# #     print("🚀 MockShield AI Engine Starting on Port 8000...")
+# #     uvicorn.run(app, host="0.0.0.0", port=8000)
+# # --- STARTUP ---
+# if __name__ == "__main__":
+#     import uvicorn
+    
+#     # Render assigns a dynamic port. Default to 8000 for local testing.
+#     port = int(os.getenv("PORT", 8000))
+    
+#     print(f"🚀 MockShield AI Engine Starting on Port {port}...")
+#     uvicorn.run(app, host="0.0.0.0", port=port)
+#-----------------------------------------------------------------------------------------------------
+# 1 march
 import sys
 import os
 # --- 1. FORCE PATH TO CURRENT DIRECTORY (Crucial for imports) ---
@@ -807,12 +1089,14 @@ async def evaluate_session_endpoint(req: StandardEvalRequest):
 @app.post("/chat")
 def chat_endpoint(req: ChatRequest):
     try:
+        import re # Imported locally to respect strict non-interference rules outside this block
+        
         # 1. Parse Context 
         topic = req.context.get("topic", "General Interview")
         score = req.context.get("score", "N/A")
         page = req.context.get("page", "Dashboard")
 
-        # 2. THE POWER PROMPT
+        # 2. THE POWER PROMPT - CRITICALLY MODIFIED FOR JSON EXTRACTION
         prompt = f"""
         ### SYSTEM ROLE:
         You are the **MockShield Forensic Career Coach**. 
@@ -831,11 +1115,35 @@ def chat_endpoint(req: ChatRequest):
         2. **Technical Specificity:** Provide actionable tips for **{topic}**.
         3. **Tone:** Professional, encouraging, but strict.
         4. **Constraint:** Keep your answer **under 4 sentences**.
+        5. **CRITICAL OUTPUT FORMAT:** You MUST return ONLY a valid JSON dictionary. Do NOT output markdown or plain text.
+        Format strictly as: {{"reply": "your 4-sentence response here"}}
         """
 
         # 3. Call AI
-        response_text = generate_with_failover(prompt)
-        return {"reply": response_text}
+        response_data = generate_with_failover(prompt)
+        
+        # 4. Safe Text Extraction (Handles dicts, or strings if the parser missed something)
+        if isinstance(response_data, dict):
+            final_reply = response_data.get("reply", str(response_data))
+        else:
+            # Emergency string extraction if the generate_with_failover returns raw text
+            try:
+                match = re.search(r'```(?:json)?\s*(\{.*?\})\s*```', str(response_data), re.DOTALL)
+                if match:
+                    parsed = json.loads(match.group(1))
+                    final_reply = parsed.get("reply", str(parsed))
+                else:
+                    start = str(response_data).find('{')
+                    end = str(response_data).rfind('}')
+                    if start != -1 and end != -1:
+                        parsed = json.loads(str(response_data)[start:end+1])
+                        final_reply = parsed.get("reply", str(parsed))
+                    else:
+                        final_reply = str(response_data)
+            except:
+                final_reply = str(response_data)
+
+        return {"reply": final_reply}
 
     except Exception as e:
         print(f"❌ CHAT ERROR: {e}")

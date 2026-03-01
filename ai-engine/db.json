@@ -1,5 +1,63 @@
 [
     {
+        "id": "e7b802d1-3b05-4f17-9e83-37cf196b91b8",
+        "createdAt": "2026-03-01T18:55:51.348977",
+        "topic": "Behavioral & Culture Fit",
+        "total_score": 0,
+        "summary": "No summary.",
+        "full_data": {
+            "questions": [
+                {
+                    "question": "You are leading a cross-functional migration where the legacy system is experiencing intermittent memory leaks; describe your framework for deciding whether to divert 40% of your SRE headcount to a temporary 'hot-fix' versus proceeding with the migration, knowing that a delay will breach a high-stakes SLA with a top-tier client but the migration itself has a 15% chance of introducing a data-integrity regression.",
+                    "answer": "[No Answer Provided]"
+                },
+                {
+                    "question": "A principal-level peer refuses to adopt a new global consensus protocol you have proposed for the distributed metadata service, citing minor latency trade-offs that don't align with their specific team's OKRs; detail the specific negotiation strategy and technical concessions you would utilize to achieve organizational alignment without compromising the overarching system scalability goals.",
+                    "answer": "[No Answer Provided]"
+                },
+                {
+                    "question": "Analyze a situation where a critical architectural decision you championed resulted in a 30% increase in operational overhead six months post-launch; explain how you would manage the optics of this technical miscalculation with the VP of Engineering while simultaneously presenting a remediation roadmap that requires additional budget in a zero-growth fiscal year.",
+                    "answer": "[No Answer Provided]"
+                }
+            ],
+            "topic": "Behavioral & Culture Fit",
+            "totalScore": 0,
+            "overallFeedback": "The candidate failed to respond to every question in the forensic audit, demonstrating a total lack of engagement, preparation, or the required seniority for high-stakes technical leadership. This performance represents a 100% gap between current capability and the requirements of a Staff/Principal Engineer. \\nAdvice: Practice structured communication using the STAR method for architectural failures. Develop a deep repository of 'War Stories' focusing on trade-offs between SRE resources, system latency, and fiscal constraints.",
+            "roadmap": "1. Study Incident Management frameworks (MTTR vs. MTTF). 2. Master the 'Decision Matrix' for resource allocation during system migrations. 3. Practice 'Crucial Conversations' techniques for peer-level technical negotiations. 4. Learn to quantify technical debt into financial risk for C-suite communication.",
+            "question_reviews": [
+                {
+                    "question": "You are leading a cross-functional migration where the legacy system is experiencing intermittent memory leaks; describe your framework for deciding whether to divert 40% of your SRE headcount to a temporary 'hot-fix' versus proceeding with the migration, knowing that a delay will breach a high-stakes SLA with a top-tier client but the migration itself has a 15% chance of introducing a data-integrity regression.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "The candidate failed to address a critical resource-contention and risk-management scenario. A senior leader must be able to weigh the cost of an SLA breach against the catastrophic risk of a 15% data-integrity regression, which is often a 'company-ending' event.",
+                    "ideal_answer": "I would implement a 'Risk-Weighted Decision Matrix.' First, I'd quantify the SLA breach penalty ($) vs. the cost of a data-integrity recovery event (Brand/Legal). If the memory leak is linear, I'd propose an automated 'reboot-cycle' or horizontal scaling as a temporary band-aid to minimize SRE diversion. However, if the 15% regression risk is higher than our 'blast radius' tolerance, I would halt the migration, divert the 40% SRE to build a 'Shadow-Mode' validation pipeline for the migration, and simultaneously negotiate a 'force majeure' or service credit with the client to protect the data integrity at all costs."
+                },
+                {
+                    "question": "A principal-level peer refuses to adopt a new global consensus protocol you have proposed for the distributed metadata service, citing minor latency trade-offs that don't align with their specific team's OKRs; detail the specific negotiation strategy and technical concessions you would utilize to achieve organizational alignment without compromising the overarching system scalability goals.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "Total failure to demonstrate technical diplomacy or architectural compromise. This role requires the ability to bridge the gap between local optimizations and global system invariants.",
+                    "ideal_answer": "I would utilize the 'Isolation and Abstraction' strategy. I would propose a 'Versioning/Plugin' architecture where their service can interact with the metadata service via a specialized low-latency shim or cache, deferring the consensus overhead to asynchronous background tasks where possible. To align on OKRs, I would present a 12-month projection showing that while their latency increases by 5ms now, the new protocol prevents a total system 'brown-out' when we scale 10x, which would otherwise lead to a 100% OKR failure for their team. I'd offer to 'loan' them 1-2 weeks of my team's engineering time to optimize their service's hot-path to offset the protocol's latency."
+                },
+                {
+                    "question": "Analyze a situation where a critical architectural decision you championed resulted in a 30% increase in operational overhead six months post-launch; explain how you would manage the optics of this technical miscalculation with the VP of Engineering while simultaneously presenting a remediation roadmap that requires additional budget in a zero-growth fiscal year.",
+                    "user_answer": "[No Answer Provided]",
+                    "score": 0,
+                    "feedback": "The candidate did not provide any evidence of accountability or financial literacy. Managing a VP's expectations during a technical failure requires a pivot from 'defensiveness' to 'ROI-based remediation'.",
+                    "ideal_answer": "I would lead with 'Radical Transparency' by presenting a Post-Mortem that identifies the specific decoupling failure or scaling assumption that led to the 30% overhead. I would manage optics by framing the 30% as a 'scaling tax' that provided necessary stability during the initial launch, but is now the target of a 'Cost-Optimization Sprint.' To secure budget in a zero-growth year, I would propose a 'Self-Funding' model: we will sunset two legacy features or underutilized environments to reclaim the budget needed for the remediation. The roadmap would focus on 'Operational Autonomicism'\u2014investing in automated scaling and self-healing to reduce the human-to-node ratio back to target levels."
+                }
+            ],
+            "silent_killers": [
+                "Complete non-responsiveness",
+                "Zero engagement with technical complexity",
+                "Failure to demonstrate decision-making frameworks",
+                "Absolute lack of ownership or accountability"
+            ],
+            "integrity_score": 100,
+            "violations_count": 0
+        }
+    },
+    {
         "id": "649b7337-c80a-4429-9559-6b9c6e4ec466",
         "createdAt": "2026-03-01T15:10:56.847851",
         "topic": "Database Management (SQL/NoSQL)",
