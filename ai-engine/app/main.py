@@ -959,16 +959,14 @@ except ImportError as e:
 
 app = FastAPI()
 
-# Enable CORS for Frontend (STRICT WHITELIST FOR CREDENTIALS)
+# Enable CORS for Frontend (Port 5173)
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[
-        "https://mockshield.vercel.app", # <-- VERCEL LIVE URL MUST BE HERE
-        "http://localhost:5173"          # <-- VITE LOCALHOST
-    ],
+    allow_origins=["*"], #Keep this as "*" for the initial deployment
     allow_methods=["*"],
     allow_headers=["*"],
-    allow_credentials=True,              # <-- CRITICAL: MUST BE TRUE TO ACCEPT REQUESTS FROM VERCEL
+    # allow_credentials=True,
+    allow_credentials=False, # 
 )
 
 # ==========================================
@@ -1217,6 +1215,11 @@ async def clear_all_history():
         traceback.print_exc()
         raise HTTPException(status_code=500, detail="Failed to clear history")
 
+# --- STARTUP ---
+# if __name__ == "__main__":
+#     import uvicorn
+#     print("🚀 MockShield AI Engine Starting on Port 8000...")
+#     uvicorn.run(app, host="0.0.0.0", port=8000)
 # --- STARTUP ---
 if __name__ == "__main__":
     import uvicorn
