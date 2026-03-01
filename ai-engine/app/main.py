@@ -684,7 +684,7 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
     # allow_credentials=True,
-    allow_credentials=False, # Note: If allow_origins=["*"], then allow_credentials MUST be False, otherwise FastAPI will crash on startup.
+    allow_credentials=False, # 
 )
 
 # ==========================================
@@ -908,7 +908,16 @@ async def clear_all_history():
         raise HTTPException(status_code=500, detail="Failed to clear history")
 
 # --- STARTUP ---
+# if __name__ == "__main__":
+#     import uvicorn
+#     print("🚀 MockShield AI Engine Starting on Port 8000...")
+#     uvicorn.run(app, host="0.0.0.0", port=8000)
+# --- STARTUP ---
 if __name__ == "__main__":
     import uvicorn
-    print("🚀 MockShield AI Engine Starting on Port 8000...")
-    uvicorn.run(app, host="0.0.0.0", port=8000)
+    
+    # Render assigns a dynamic port. Default to 8000 for local testing.
+    port = int(os.getenv("PORT", 8000))
+    
+    print(f"🚀 MockShield AI Engine Starting on Port {port}...")
+    uvicorn.run(app, host="0.0.0.0", port=port)
