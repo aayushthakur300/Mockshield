@@ -3799,19 +3799,19 @@ else:
 print(f"[{datetime.now()}] 📡 CONNECTING TO GOOGLE TO FETCH AVAILABLE MODELS...", flush=True)
 
 live_models = []
-if not is_mock_mode:
-    try:
-        for m in genai.list_models():
-            if 'generateContent' in m.supported_generation_methods:
-                live_models.append(m.name)
+# if not is_mock_mode:
+#     try:
+#         for m in genai.list_models():
+#             if 'generateContent' in m.supported_generation_methods:
+#                 live_models.append(m.name)
         
-        if not live_models:
-            print(f"[{datetime.now()}] ⚠️ WARNING: Could not fetch live models. Using fallback list.", flush=True)
-        else:
-            print(f"[{datetime.now()}] ✅ FOUND {len(live_models)} LIVE MODELS. (Top: {live_models[0]})", flush=True)
-    except Exception as e:
-        print(f"[{datetime.now()}] ⚠️ CONNECTION WARNING: {e}", flush=True)
-        live_models = []
+#         if not live_models:
+#             print(f"[{datetime.now()}] ⚠️ WARNING: Could not fetch live models. Using fallback list.", flush=True)
+#         else:
+#             print(f"[{datetime.now()}] ✅ FOUND {len(live_models)} LIVE MODELS. (Top: {live_models[0]})", flush=True)
+#     except Exception as e:
+#         print(f"[{datetime.now()}] ⚠️ CONNECTION WARNING: {e}", flush=True)
+#         live_models = []
 
 # ==============================================================================
 # 1. CONFIGURATION: PRIMARY VS FALLBACK MODEL LISTS
