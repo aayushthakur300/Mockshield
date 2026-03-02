@@ -40,26 +40,35 @@ const Landing = () => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  // --- MOCKSHIELD FEATURES DATA (Mapped to 20 Project Capabilities) ---
+  // --- MOCKSHIELD FEATURES DATA (Refined to Exactly Match Project Capabilities) ---
   const features = [
-    { icon: "fa-user-secret", title: "Forensic Interview Analysis", desc: "Deep-scan analysis detects behavioral red flags, hesitation markers, and answer shallowness using a 23-point forensic validation system." },
-    { icon: "fa-wand-magic-sparkles", title: "Auto-Refine & Coach", desc: "Automatically generates 100% compliant, 'Gold Standard' answers and translates vague responses into Principal Engineer level communication." },
-    { icon: "fa-database", title: "Session Database", desc: "Automatically save and reload previous interview sessions. Manage your history by reviewing past performance logs." },
-    { icon: "fa-file-pdf", title: "Professional Dossiers", desc: "Generate standardized PDF reports containing transcript forensics, psychometric scoring, and improvement roadmaps." },
-    { icon: "fa-language", title: "Domain Detection", desc: "Automatically identifies the technical domain (Java, React, System Design) from your resume without user input." },
-    { icon: "fa-triangle-exclamation", title: "Silent Killer Log", desc: "Pinpoints exact timestamps where confidence dropped or 'filler words' were used, mapped directly to the transcript." },
-    { icon: "fa-book-open", title: "Q&A Deep Dive", desc: "Explains the ideal answer step-by-step while filtering out fluff, hesitation, and non-technical noise." },
-    { icon: "fa-chart-line", title: "Aptitude Analysis", desc: "Provides best, average, and worst-case metrics for logical reasoning, problem-solving speed, and structural thinking." },
-    { icon: "fa-fingerprint", title: "Resume Integrity Monitor", desc: "Detects 'Resume Padding' by cross-referencing interview answers against claimed skills to flag high-risk discrepancies." },
-    { icon: "fa-check-double", title: "Fact-Check Engine", desc: "Validates technical accuracy, architectural soundness, and factual correctness of every user response." },
-    { icon: "fa-shield-halved", title: "Hiring Readiness Status", desc: "Displays real-time HIRE/NO-HIRE compliance status after full interview correction and validation." },
-    { icon: "fa-headset", title: "AI Career Coach", desc: "Context-aware floating assistant that understands the current interview state and provides instant strategic advice." },
-    { icon: "fa-globe", title: "Multi-Stack Support", desc: "Supports analysis, mock interviews, and resume auditing across 20+ tech stacks and engineering roles." },
-    { icon: "fa-star-half-stroke", title: "Competency Scoring", desc: "Assigns strict quality scores (0-100) based on Technical Depth, Communication, and Cultural Fit." },
-    { icon: "fa-glasses", title: "Communication Clarity", desc: "Evaluates how clean, understandable, and structured your spoken or written answers are for real-world scenarios." },
-    { icon: "fa-bomb", title: "Red Flag Prediction", desc: "Predicts interview failure points, defensive attitudes, and knowledge gaps before the actual interview." },
-    { icon: "fa-code", title: "STAR Method Structuring", desc: "Rewrites rambling answers into the clean, professional STAR (Situation, Task, Action, Result) format." },
-    { icon: "fa-bolt", title: "Real-Time Feedback UI", desc: "Live feedback with loading states, active listening indicators, and visual integrity status updates." },
+    { icon: "fa-code-branch", title: "Dual-Engine Evaluation", desc: "Seamlessly toggle between standard Technical Mock Interviews and specialized Resume-based Audits using dynamic AI prompts." },
+    { icon: "fa-user-secret", title: "Forensic Transcript Analysis", desc: "Deep-scan analysis evaluates every candidate response, generating composite scores, feedback, and ideal technical answers." },
+    { icon: "fa-database", title: "Session History Database", desc: "Persistent JSON-based tracking to automatically save, reload, and manage your past interview session performance logs." },
+    { icon: "fa-file-pdf", title: "Professional PDF Dossiers", desc: "Instantly export standardized, multi-page PDF reports containing transcript forensics, competency scoring, and optimization roadmaps." },
+    { icon: "fa-triangle-exclamation", title: "Silent Killer Detection", desc: "Pinpoints critical behavioral red flags and technical gaps that would automatically disqualify a candidate in a real interview." },
+    { icon: "fa-headset", title: "Context-Aware AI Coach", desc: "Floating chat assistant that understands your current report score and domain, providing instant, under-4-sentence strategic advice." },
+    { icon: "fa-map", title: "Optimization Roadmaps", desc: "Generates customized, actionable improvement plans post-interview based on your specific technical and HR weaknesses." },
+    { 
+      icon: "fa-layer-group", 
+      title: "20+ Mock Interview Modules", 
+      desc: "Simulates over 20 distinct interview environments, ranging from rigorous System Design and Advanced DSA to behavioral HR screenings and live debugging." 
+    },
+    { 
+      icon: "fa-cubes", 
+      title: "25+ Supported Tech Domains", 
+      desc: "Deep-scan technical evaluations configured for over 25 unique engineering domains, including Full-Stack Web, Cloud Architecture, Data Science, and DevOps." 
+    },
+    { icon: "fa-fingerprint", title: "Resume Gap Analysis", desc: "Cross-references your provided resume against technical questions to flag padding, high-risk discrepancies, and skill gaps." },
+    { icon: "fa-star-half-stroke", title: "Competency Scoring", desc: "Assigns strict, composite quality scores (0-100) based on Technical Depth, HR fitness, and logic aptitude." },
+    { icon: "fa-wand-magic-sparkles", title: "Ideal Answer Generation", desc: "Rewrites vague or incorrect responses into 'Gold Standard' technical answers formatted for Principal Engineer level communication." },
+    { icon: "fa-file-code", title: "JSON-Enforced AI Parsing", desc: "Strict backend regex extractors guarantee the AI consistently returns valid data arrays for the dashboard without crashing." },
+    { icon: "fa-shield-halved", title: "Live Proctoring Status", desc: "Monitors session integrity and visually flags users if browser focus is lost during the assessment, calculating an overall trust score." },
+    { icon: "fa-object-group", title: "Maximum Merge Protocol", desc: "Guarantees 1:1 data integrity between user answers and AI feedback so no generated questions are ever skipped or lost in the UI." },
+    { icon: "fa-network-wired", title: "Cross-Origin Secure Architecture", desc: "Robust FastAPI backend with strict CORS whitelisting, safely communicating user payloads with the React Vite frontend." },
+    { icon: "fa-server", title: "Multi-Model Failover", desc: "Python backend engine designed to cycle and retry automatically if the primary AI generator encounters a timeout or syntax error." },
+    { icon: "fa-border-all", title: "Sterile Danger Mode UI", desc: "Clinical, neo-brutalist dashboard design utilizing strict white-mode enforcing for maximum readability, focus, and visual impact." },
+    { icon: "fa-bolt", title: "Real-Time Interaction", desc: "Live active listening indicators, auto-scrolling chat states, and instant modal interactions for an immersive coaching experience." },
   ];
 
   return (
@@ -262,7 +271,7 @@ const Landing = () => {
           </div>
 
           <div className="flex items-center gap-4">
-             {/* THE THEME TOGGLE BUTTON (UNCOMMENTED AND ACTIVE) */}
+             {/* THE THEME TOGGLE BUTTON */}
              <button 
                 onClick={toggleTheme} 
                 aria-label="Toggle theme" 
@@ -311,7 +320,7 @@ const Landing = () => {
       <section className="relative pt-40 pb-20 min-h-screen flex items-center justify-center text-center px-6">
         <div className="max-w-5xl mx-auto z-10">
           <div className="inline-block px-4 py-1 mb-6 border border-red-500/30 rounded-full bg-red-900/10 text-red-400 text-xs font-bold tracking-widest uppercase animate-pulse">
-            v2.0 System Online
+            v2.0 Architecture Online
           </div>
 
           <h1 className="text-5xl md:text-7xl font-black mb-6 leading-tight text-[var(--text-main)]">
@@ -320,8 +329,8 @@ const Landing = () => {
           </h1>
 
           <p className="text-[var(--text-muted)] text-lg md:text-xl max-w-2xl mx-auto mb-10 leading-relaxed font-semibold">
-            Forensic interview simulation, resume gap analysis, and automated coaching. 
-            Persistent tracking, behavioral profiling, and professional PDF reports.
+            Dual-engine mock interview simulation, resume gap analysis, and context-aware automated coaching. 
+            Persistent JSON tracking, forensic transcript evaluations, and professional PDF dossiers.
           </p>
 
           <div className="flex flex-col md:flex-row gap-6 justify-center">
@@ -331,13 +340,13 @@ const Landing = () => {
             </Link>
             
             <a href="#features" className="px-8 py-4 rounded-lg text-lg font-bold border border-[var(--text-muted)] text-[var(--text-main)] hover:bg-[var(--accent)] hover:border-[var(--accent)] hover:text-white transition flex items-center justify-center gap-2">
-              Explore Features <i className="fa-solid fa-arrow-down"></i>
+              Explore Architecture <i className="fa-solid fa-arrow-down"></i>
             </a>
           </div>
         </div>
       </section>
 
-      {/* --- FEATURES GRID (20 Cards) --- */}
+      {/* --- FEATURES GRID (18 Cards) --- */}
       <section id="features" className="py-24 bg-black/5 dark:bg-black/30">
         <div className="max-w-7xl mx-auto px-6">
           <div className="text-center mb-16">
@@ -347,7 +356,7 @@ const Landing = () => {
             <div className="h-1 w-24 bg-red-600 mx-auto mt-4 rounded"></div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
             {features.map((feature, index) => (
               <div key={index} className="feature-card flex flex-col items-start">
                 <i className={`fa-solid ${feature.icon} feature-icon-lg`}></i>
@@ -370,20 +379,20 @@ const Landing = () => {
               Supreme AI <span className="text-red-500">LogicProbe</span>
             </h2>
             <p className="text-[var(--text-muted)] text-lg mb-6 leading-relaxed font-bold">
-              The LogicProbe engine performs a simultaneous 23-point security and compliance check, providing granular feedback on efficiency and integrity.
+              The MockShield AI engine performs strict evaluation across technical, HR, and aptitude metrics, utilizing multi-model failovers and JSON-enforced parsing to deliver granular feedback without crashing.
             </p>
             <ul className="space-y-4 text-[var(--text-muted)] font-semibold">
               <li className="flex items-center gap-3">
                 <i className="fa-solid fa-check-circle text-green-500"></i>
-                <span>Psychometric & Behavioral Profiling</span>
+                <span>Resume Integrity & Skill Audits</span>
               </li>
               <li className="flex items-center gap-3">
                 <i className="fa-solid fa-check-circle text-green-500"></i>
-                <span>Resume Integrity & Skill Checks</span>
+                <span>Detailed Silent Killer Detection</span>
               </li>
               <li className="flex items-center gap-3">
                 <i className="fa-solid fa-check-circle text-green-500"></i>
-                <span>Detailed "Silent Killer" Detection</span>
+                <span>Automated Optimization Roadmaps</span>
               </li>
             </ul>
             
@@ -392,24 +401,24 @@ const Landing = () => {
             </Link>
           </div>
 
-          {/* --- CODE PREVIEW (Mock Analysis JSON) --- */}
+          {/* --- CODE PREVIEW (Mock Analysis JSON matching Python Backend) --- */}
           <div className="code-preview shadow-2xl shadow-red-900/20">
             <div className="flex items-center gap-2 mb-4 border-b border-gray-800 pb-2">
               <div className="w-3 h-3 rounded-full bg-red-500"></div>
               <div className="w-3 h-3 rounded-full bg-yellow-500"></div>
               <div className="w-3 h-3 rounded-full bg-green-500"></div>
-              <span className="text-xs text-gray-500 ml-auto">analysis_result.json</span>
+              <span className="text-xs text-gray-500 ml-auto font-bold tracking-widest uppercase">eval_response.json</span>
             </div>
             <code className="text-sm block">
-              <span className="block"><span className="text-purple-400">"candidate_assessment"</span>: <span className="text-yellow-400">{"{"}</span></span>
-              <span className="block pl-4"><span className="text-blue-400">"status"</span>: <span className="text-green-400">"READY_TO_HIRE"</span>,</span>
-              <span className="block pl-4"><span className="text-blue-400">"risk_factor"</span>: <span className="text-red-400">"LOW"</span>,</span>
-              <span className="block pl-4"><span className="text-blue-400">"flags"</span>: [</span>
-              <span className="block pl-8 text-gray-500">// Silent Killers Detected</span>
-              <span className="block pl-8"><span className="text-orange-400">"Hesitation_Latencies"</span>,</span>
-              <span className="block pl-8"><span className="text-orange-400">"Defensive_Tone"</span></span>
-              <span className="block pl-4">],</span>
-              <span className="block pl-4"><span className="text-blue-400">"score"</span>: <span className="text-green-400">92</span></span>
+              <span className="block"><span className="text-purple-400">"interview_results"</span>: <span className="text-yellow-400">{"{"}</span></span>
+              <span className="block pl-4"><span className="text-blue-400">"score"</span>: <span className="text-green-400">92</span>,</span>
+              <span className="block pl-4"><span className="text-blue-400">"summary"</span>: <span className="text-green-400">"Principal-level communication verified."</span>,</span>
+              <span className="block pl-4"><span className="text-blue-400">"roadmap"</span>: <span className="text-green-400">"Focus on advanced system design scaling."</span>,</span>
+              <span className="block pl-4"><span className="text-blue-400">"silent_killers"</span>: [</span>
+              <span className="block pl-8 text-gray-500">// Extracted Behavioral Flags</span>
+              <span className="block pl-8"><span className="text-orange-400">"High latency before architectural answers"</span>,</span>
+              <span className="block pl-8"><span className="text-orange-400">"Resume discrepancy detected in React hooks"</span></span>
+              <span className="block pl-4">]</span>
               <span className="block"><span className="text-yellow-400">{"}"}</span></span>
             </code>
           </div>
