@@ -1,5 +1,9 @@
-MockShield AI
+### MockShield AI
 
+### 1. Production link for frontend: https://mockshield.vercel.app
+### 2. Production link for main backend: https://mockshield.onrender.com
+### 3. Production link for node backend: https://mockshield-node.onrender.com
+### Remember to use, first click on 2 and 3 link to start the journey and wait for 50 seconds if they start showing running status then click on 1 link to start the seamless journey. Now, take mock interview according to desired field on the platform.
 MockShield AI is a technical assessment platform that executes Mock Interviews and Resume Forensic Audits. Utilizing a multi-tiered LLM routing system integrated with Google Gemini models and persistent data storage, it executes scenario-based technical evaluations across 25+ professional domains.
 
 The system implements a 15-Layer Defense Architecture to enforce strict JSON schema parsing, prompt-injection mitigation, and automated failover handling.
