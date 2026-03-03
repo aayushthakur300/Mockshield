@@ -1,32 +1,26 @@
-MockShield AI
+### 🚀 MockShield AI
 
-Production-Grade Technical Interview and Resume Evaluation Platform
+Ai-Platform for Technical Interview and Resume Evaluation 
 
 
----
+### 🌐 Production Deployment Access
 
-Production Deployment Access
-
-Service Initialization Instructions (Render Cold Start)
+⏳ Service Initialization Instructions (Render Cold Start)
 
 Due to cold start behavior on hosted backend services:
 
-1. Open the backend services first:
+1️⃣ Open the backend services first:
 
 Main Backend: https://mockshield.onrender.com
 
 Node Backend: https://mockshield-node.onrender.com
 
 
+2️⃣ Wait approximately 50 seconds until both services indicate active or running status.
 
-2. Wait approximately 50 seconds until both services indicate active or running status.
-
-
-3. Then open the frontend:
+3️⃣ Then open the frontend:
 
 Frontend: https://mockshield.vercel.app
-
-
 
 
 After initialization, select the desired domain and begin the mock interview session.
@@ -34,21 +28,21 @@ After initialization, select the desired domain and begin the mock interview ses
 
 ---
 
-Overview
+### 📌 Overview
 
 MockShield AI is a distributed technical assessment system designed to conduct structured mock interviews and resume-based forensic evaluations.
 
 The platform integrates:
 
-Multi-tier large language model routing
+### 🧠 Multi-tier large language model routing
 
-Deterministic JSON schema enforcement
+🧩 Deterministic JSON schema enforcement
 
-PostgreSQL-based persistent storage
+🗄 PostgreSQL-based persistent storage
 
-Automated failover handling
+🔁 Automated failover handling
 
-Domain-specific interview simulation logic
+🏗 Domain-specific interview simulation logic
 
 
 The architecture prioritizes reliability, structured AI output handling, and production-level resilience.
@@ -56,17 +50,17 @@ The architecture prioritizes reliability, structured AI output handling, and pro
 
 ---
 
-System Architecture
+🏗 System Architecture
 
 MockShield AI follows a decoupled microservices architecture.
 
 Layer	Technology Stack	Responsibility
 
-Frontend	React (Vite), TailwindCSS	User interface and session workflow
-Core Backend	Node.js	API routing, authentication, database transactions
-AI Engine	Python (FastAPI)	LLM generation, evaluation, structured parsing
-Database	PostgreSQL	Persistent session and transcript storage
-LLM Routing	Google Gemini SDK	Model orchestration and failover
+🎨 Frontend	React (Vite), TailwindCSS	User interface and session workflow
+🔗 Core Backend	Node.js	API routing, authentication, database transactions
+🤖 AI Engine	Python (FastAPI)	LLM generation, evaluation, structured parsing
+🗄 Database	PostgreSQL	Persistent session and transcript storage
+🔄 LLM Routing	Google Gemini SDK	Model orchestration and failover
 
 
 The separation of services ensures modularity, scalability, and controlled execution boundaries.
@@ -74,26 +68,26 @@ The separation of services ensures modularity, scalability, and controlled execu
 
 ---
 
-Core Modules
+⚙️ Core Modules
 
-1. Dynamic Mock Interview Engine
+1️⃣ Dynamic Mock Interview Engine
 
 The interview engine generates domain-specific, scenario-based technical questions.
 
-Features:
+Capabilities
 
-Algorithmic question generation (non-static question bank)
+🧮 Algorithmic question generation (non-static question bank)
 
-Parameterized technical variables
+🔀 Parameterized technical variables
 
-Real-time transcript evaluation
+📊 Real-time transcript evaluation
 
-Composite scoring computation
+📈 Composite scoring computation
 
-Support for 20+ simulated interview domains
+🏢 Support for 20+ simulated interview domains
 
 
-Representative domains include:
+Representative Domains
 
 Data Structures and Algorithms
 
@@ -115,64 +109,66 @@ Behavioral Interviews
 
 ---
 
-2. Resume Forensic Auditor (BOB Engine)
+2️⃣ Resume Forensic Auditor (BOB Engine)
 
 The resume auditor performs structured cross-validation between declared resume claims and candidate responses.
 
-Capabilities:
+Capabilities
 
-Technical claim verification
+🔍 Technical claim verification
 
-Edge-case interrogation generation
+🧠 Edge-case interrogation generation
 
-Difficulty scaling based on Years of Experience (YOE)
+📚 Difficulty scaling based on Years of Experience (YOE)
 
-Domain-specific validation logic
+🏷 Domain-specific validation logic
 
 
-Example behavior: If distributed systems or AWS services are declared, the system may generate follow-up questions regarding consistency models, CAP theorem implications, or service-specific internal mechanics.
+Example Behavior
+
+If distributed systems or AWS services are declared, the system may generate follow-up questions regarding consistency models, CAP theorem implications, or service-specific internal mechanics.
 
 
 ---
 
-3. Multi-Tier LLM Failover Matrix
+3️⃣ Multi-Tier LLM Failover Matrix
 
 The system is designed to maintain availability under API limitations.
 
 Tier	Function
 
-Primary Models	High-accuracy generation
-Secondary Models	Automatic latency and rate-limit fallback
-Offline Question Bank	Emergency zero-dependency fallback
+🥇 Primary Models	High-accuracy generation
+🥈 Secondary Models	Automatic latency and rate-limit fallback
+🛟 Offline Question Bank	Emergency zero-dependency fallback
 
 
-Failure scenarios handled:
+Failure Scenarios Handled
 
-HTTP 429 rate limits
+🚦 HTTP 429 rate limits
 
-API timeouts
+⌛ API timeouts
 
-Service unavailability
+⚠️ Service unavailability
 
 
 
 ---
 
-4. JSON Defense Architecture
+4️⃣ JSON Defense Architecture
 
 Ensures structured and valid LLM outputs before application execution.
 
-Mechanisms:
+Mechanisms
 
-Standard JSON parsing
+📦 Standard JSON parsing
 
-Abstract Syntax Tree (AST) literal evaluation
+🌳 Abstract Syntax Tree (AST) literal evaluation
 
-Regex-based bracket balancing
+🧵 Regex-based bracket balancing
 
-Quote correction handling
+✏️ Quote correction handling
 
-Nested schema validation
+🛡 Nested schema validation
 
 
 This layer prevents malformed responses from affecting application stability.
@@ -180,41 +176,41 @@ This layer prevents malformed responses from affecting application stability.
 
 ---
 
-5. Candidate Analytics Dashboard
+5️⃣ Candidate Analytics Dashboard
 
-PostgreSQL-backed session history
+🗂 PostgreSQL-backed session history
 
-Timestamped transcript logs
+🕒 Timestamped transcript logs
 
-Composite evaluation metrics
+📊 Composite evaluation metrics
 
-Behavioral anomaly flagging
+🚩 Behavioral anomaly flagging
 
-Hard-delete privacy endpoints
-
-
-
----
-
-Security Engineering
-
-Prompt injection isolation using randomized delimiters
-
-Concurrency semaphores limiting parallel AI requests
-
-Structured payload validation prior to processing
-
-Strict schema enforcement for all model outputs
-
-Controlled failover routing logic
+🗑 Hard-delete privacy endpoints
 
 
 
 ---
 
-Local Development Setup
+🔐 Security Engineering
 
-Prerequisites
+🛡 Prompt injection isolation using randomized delimiters
+
+🚦 Concurrency semaphores limiting parallel AI requests
+
+📑 Structured payload validation prior to processing
+
+🧩 Strict schema enforcement for all model outputs
+
+🔁 Controlled failover routing logic
+
+
+
+---
+
+🛠 Local Development Setup
+
+✅ Prerequisites
 
 Node.js (v18 or higher)
 
@@ -230,7 +226,7 @@ Three terminal instances are required to run all services concurrently.
 
 ---
 
-Terminal 1 — Core Backend (Node.js)
+🖥 Terminal 1 — Core Backend (Node.js)
 
 cd backend
 npm install
@@ -239,7 +235,7 @@ npm start
 
 ---
 
-Terminal 2 — AI Engine (FastAPI)
+🧠 Terminal 2 — AI Engine (FastAPI)
 
 cd ai-engine
 python -m venv venv
@@ -260,7 +256,7 @@ Default Port: 8000
 
 ---
 
-Terminal 3 — Frontend (React + Vite)
+🎨 Terminal 3 — Frontend (React + Vite)
 
 cd frontend
 npm install
@@ -269,7 +265,7 @@ npm run dev
 
 ---
 
-AI Engine API Reference
+📡 AI Engine API Reference
 
 Method	Endpoint	Description
 
@@ -289,7 +285,7 @@ All endpoints enforce structured JSON schema validation.
 
 ---
 
-Engineering Principles
+📐 Engineering Principles
 
 Deterministic AI output handling
 
@@ -305,6 +301,6 @@ Defensive JSON validation
 
 ---
 
-License
+📄 License
 
 Intended for educational use and structured technical evaluation purposes.
