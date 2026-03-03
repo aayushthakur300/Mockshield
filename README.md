@@ -1,26 +1,26 @@
 ### 🚀 MockShield AI
 
-Ai-Platform for Technical Interview and Resume Evaluation 
+# Ai-Platform for Technical Interview and Resume Evaluation 
 
 
 ### 🌐 Production Deployment Access
 
-⏳ Service Initialization Instructions (Render Cold Start)
+# ⏳ Service Initialization Instructions (Render Cold Start)
 
-Due to cold start behavior on hosted backend services:
+# Due to cold start behavior on hosted backend services:
 
-1️⃣ Open the backend services first:
+# 1️⃣ Open the backend services first:
 
-Main Backend: https://mockshield.onrender.com
+# Main Backend: https://mockshield.onrender.com
 
-Node Backend: https://mockshield-node.onrender.com
+# Node Backend: https://mockshield-node.onrender.com
 
 
-2️⃣ Wait approximately 50 seconds until both services indicate active or running status.
+# 2️⃣ Wait approximately 50 seconds until both services indicate active or running status.
 
-3️⃣ Then open the frontend:
+# 3️⃣ Then open the frontend:
 
-Frontend: https://mockshield.vercel.app
+# Frontend: https://mockshield.vercel.app
 
 
 After initialization, select the desired domain and begin the mock interview session.
@@ -34,7 +34,7 @@ MockShield AI is a distributed technical assessment system designed to conduct s
 
 The platform integrates:
 
-### 🧠 Multi-tier large language model routing
+ 🧠 Multi-tier large language model routing
 
 🧩 Deterministic JSON schema enforcement
 
@@ -50,7 +50,7 @@ The architecture prioritizes reliability, structured AI output handling, and pro
 
 ---
 
-🏗 System Architecture
+### 🏗 System Architecture
 
 MockShield AI follows a decoupled microservices architecture.
 
@@ -68,7 +68,7 @@ The separation of services ensures modularity, scalability, and controlled execu
 
 ---
 
-⚙️ Core Modules
+### ⚙️ Core Modules
 
 1️⃣ Dynamic Mock Interview Engine
 
@@ -109,7 +109,7 @@ Behavioral Interviews
 
 ---
 
-2️⃣ Resume Forensic Auditor (BOB Engine)
+### 2️⃣ Resume Forensic Auditor (BOB Engine)
 
 The resume auditor performs structured cross-validation between declared resume claims and candidate responses.
 
@@ -131,7 +131,7 @@ If distributed systems or AWS services are declared, the system may generate fol
 
 ---
 
-3️⃣ Multi-Tier LLM Failover Matrix
+### 3️⃣ Multi-Tier LLM Failover Matrix
 
 The system is designed to maintain availability under API limitations.
 
@@ -154,7 +154,7 @@ Failure Scenarios Handled
 
 ---
 
-4️⃣ JSON Defense Architecture
+### 4️⃣ JSON Defense Architecture
 
 Ensures structured and valid LLM outputs before application execution.
 
@@ -176,7 +176,7 @@ This layer prevents malformed responses from affecting application stability.
 
 ---
 
-5️⃣ Candidate Analytics Dashboard
+### 5️⃣ Candidate Analytics Dashboard
 
 🗂 PostgreSQL-backed session history
 
@@ -192,7 +192,7 @@ This layer prevents malformed responses from affecting application stability.
 
 ---
 
-🔐 Security Engineering
+### 🔐 Security Engineering
 
 🛡 Prompt injection isolation using randomized delimiters
 
@@ -208,7 +208,7 @@ This layer prevents malformed responses from affecting application stability.
 
 ---
 
-🛠 Local Development Setup
+### 🛠 Local Development Setup
 
 ✅ Prerequisites
 
@@ -226,58 +226,58 @@ Three terminal instances are required to run all services concurrently.
 
 ---
 
-🖥 Terminal 1 — Core Backend (Node.js)
+### 🖥 Terminal 1 — Core Backend (Node.js)
 
-cd backend
-npm install
-npm start
+# cd backend
+# npm install
+# npm start
 
 
 ---
 
-🧠 Terminal 2 — AI Engine (FastAPI)
+### 🧠 Terminal 2 — AI Engine (FastAPI)
 
-cd ai-engine
-python -m venv venv
+# cd ai-engine
+# python -m venv venv
 
 Windows
 
-venv\Scripts\activate
+# venv\Scripts\activate
 
 macOS / Linux
 
-source venv/bin/activate
+# source venv/bin/activate
 
-pip install fastapi uvicorn pydantic google-generativeai python-dotenv
-python -m app.main
+# pip install fastapi uvicorn pydantic google-generativeai python-dotenv
+# python -m app.main
 
-Default Port: 8000
-
-
----
-
-🎨 Terminal 3 — Frontend (React + Vite)
-
-cd frontend
-npm install
-npm run dev
+# Default Port: 8000
 
 
 ---
 
-📡 AI Engine API Reference
+### 🎨 Terminal 3 — Frontend (React + Vite)
+
+# cd frontend
+# npm install
+# npm run dev
+
+
+---
+
+# 📡 AI Engine API Reference
 
 Method	Endpoint	Description
 
-POST	/generate	Generate mock interview questions
-POST	/evaluate_session	Evaluate technical transcript
-POST	/generate_resume_questions	Initialize resume audit
-POST	/evaluate_resume_session	Resume-linked transcript evaluation
-POST	/chat	Context-aware follow-up interaction
-GET	/interviews	Retrieve saved sessions
-POST	/interviews	Persist completed session
-DELETE	/interviews/{id}	Delete specific session
-DELETE	/api/sessions/clear	Clear all user sessions
+# POST	/generate	Generate mock interview questions
+# POST	/evaluate_session	Evaluate technical transcript
+# POST	/generate_resume_questions	Initialize resume audit
+# POST	/evaluate_resume_session	Resume-linked transcript evaluation
+# POST	/chat	Context-aware follow-up interaction
+# GET	/interviews	Retrieve saved sessions
+# POST	/interviews	Persist completed session
+# DELETE	/interviews/{id}	Delete specific session
+# DELETE	/api/sessions/clear	Clear all user sessions
 
 
 All endpoints enforce structured JSON schema validation.
@@ -285,7 +285,7 @@ All endpoints enforce structured JSON schema validation.
 
 ---
 
-📐 Engineering Principles
+### 📐 Engineering Principles
 
 Deterministic AI output handling
 
@@ -301,6 +301,6 @@ Defensive JSON validation
 
 ---
 
-📄 License
+### 📄 License
 
 Intended for educational use and structured technical evaluation purposes.
