@@ -1,4 +1,4 @@
-### 🚀 MockShield AI
+### 🚀 MockShield 
 
 # Ai-Platform for Technical Interview and Resume Evaluation 
 
