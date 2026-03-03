@@ -1,193 +1,310 @@
-### MockShield AI
+MockShield AI
 
-### 1. Production link for frontend: https://mockshield.vercel.app
-### 2. Production link for main backend: https://mockshield.onrender.com
-### 3. Production link for node backend: https://mockshield-node.onrender.com
-### Remember to use, first click on 2 and 3 link to start the journey and wait for 50 seconds if they start showing running status then click on 1 link to start the seamless journey. Now, take mock interview according to desired field on the platform.
-MockShield AI is a technical assessment platform that executes Mock Interviews and Resume Forensic Audits. Utilizing a multi-tiered LLM routing system integrated with Google Gemini models and persistent data storage, it executes scenario-based technical evaluations across 25+ professional domains.
+Production-Grade Technical Interview and Resume Evaluation Platform
 
-The system implements a 15-Layer Defense Architecture to enforce strict JSON schema parsing, prompt-injection mitigation, and automated failover handling.
 
-🏗 System Architecture
+---
 
-The project implements a decoupled, microservices-based client-server architecture:
+Production Deployment Access
 
-Frontend Client (/frontend): React.js (Vite), TailwindCSS, React Router.
+Service Initialization Instructions (Render Cold Start)
 
-Core Backend (/backend): Node.js environment managing database transactions, authentication, and standard API routing.
+Due to cold start behavior on hosted backend services:
 
-AI Engine Microservice (/ai-engine): Python, FastAPI environment dedicated exclusively to processing LLM generation, evaluation, and JSON structural enforcement.
+1. Open the backend services first:
 
-Database Layer: PostgreSQL (Relational data persistence for session history, transcripts, and evaluation metrics) / JSON Flat-file fallback.
+Main Backend: https://mockshield.onrender.com
 
-LLM Engine Routing: Google Generative AI SDK (gemini-3.1-pro, gemini-2.5-flash) via asynchronous thread pooling and concurrency semaphores.
+Node Backend: https://mockshield-node.onrender.com
 
-⚙️ Core Modules & Features
+
+
+2. Wait approximately 50 seconds until both services indicate active or running status.
+
+
+3. Then open the frontend:
+
+Frontend: https://mockshield.vercel.app
+
+
+
+
+After initialization, select the desired domain and begin the mock interview session.
+
+
+---
+
+Overview
+
+MockShield AI is a distributed technical assessment system designed to conduct structured mock interviews and resume-based forensic evaluations.
+
+The platform integrates:
+
+Multi-tier large language model routing
+
+Deterministic JSON schema enforcement
+
+PostgreSQL-based persistent storage
+
+Automated failover handling
+
+Domain-specific interview simulation logic
+
+
+The architecture prioritizes reliability, structured AI output handling, and production-level resilience.
+
+
+---
+
+System Architecture
+
+MockShield AI follows a decoupled microservices architecture.
+
+Layer	Technology Stack	Responsibility
+
+Frontend	React (Vite), TailwindCSS	User interface and session workflow
+Core Backend	Node.js	API routing, authentication, database transactions
+AI Engine	Python (FastAPI)	LLM generation, evaluation, structured parsing
+Database	PostgreSQL	Persistent session and transcript storage
+LLM Routing	Google Gemini SDK	Model orchestration and failover
+
+
+The separation of services ensures modularity, scalability, and controlled execution boundaries.
+
+
+---
+
+Core Modules
 
 1. Dynamic Mock Interview Engine
 
-Generates domain-specific, scenario-based technical questions.
+The interview engine generates domain-specific, scenario-based technical questions.
 
-Algorithmic Question Generation: Utilizes randomization seeds to bypass static question banks, pulling from a parameterized matrix of technical variables.
+Features:
 
-Real-Time Transcript Evaluation: Parses candidate responses for technical accuracy, domain lexicon, and architectural problem-solving methodology to compute a composite score.
+Algorithmic question generation (non-static question bank)
 
-20+ Mock Interview Modules: Simulates over 20 distinct interview environments, ranging from rigorous System Design and Advanced DSA to behavioral HR screenings and live debugging.
+Parameterized technical variables
 
-2. Resume Forensic Auditor (The "BOB" Engine)
+Real-time transcript evaluation
 
-Executes cross-reference validation between uploaded resume claims and technical reality.
+Composite scoring computation
 
-Discrepancy Scanning: Detects unverified technical assertions and dynamically generates edge-case questions (e.g., querying S3 eventual consistency models if AWS is claimed).
+Support for 20+ simulated interview domains
 
-Dynamic Difficulty Scaling: Calibrates interrogation parameters based on extracted Years of Experience (YOE). Architect-level queries focus on system degradation and CAP theorem; junior queries focus on internal API mechanics.
 
-25+ Supported Tech Domains: Deep-scan technical evaluations configured for over 25 unique engineering domains, including Full-Stack Web, Cloud Architecture, Data Science, and DevOps.
+Representative domains include:
 
-3. Multi-Tiered AI Failover Matrix
+Data Structures and Algorithms
 
-Engineered to handle API rate-limiting (HTTP 429) and execution timeouts.
+System Design
 
-Primary Fleet: High-fidelity models (gemini-3.1-pro-preview, gemini-2.5-pro).
+Backend Engineering
 
-Fallback Fleet: Automated failover to secondary nodes upon latency threshold breach.
+Cloud Architecture
 
-Hard Fallback Heuristic: In the event of complete API unavailability, the system routes to a local offline bank (25 domains, 250+ questions) to guarantee zero downtime.
+DevOps Engineering
 
-4. JSON Defense System
+Data Science
 
-Mitigates LLM formatting hallucinations and syntax errors.
+Full Stack Development
 
-Standard JSON parsing load.
+Behavioral Interviews
 
-AST Literal Evaluation.
 
-Regex surgery for bracket balancing and rogue quote termination.
 
-Schema enforcement validating nested dictionaries and array structures.
+---
 
-5. Interactive Candidate Dashboard
+2. Resume Forensic Auditor (BOB Engine)
 
-PostgreSQL-Powered Analytics: Retrieves timestamped interview sessions and evaluation metrics directly from the relational database.
+The resume auditor performs structured cross-validation between declared resume claims and candidate responses.
 
-Silent Killer Detection: Flags critical behavioral anomalies and technical anti-patterns extracted during the session.
+Capabilities:
 
-Privacy Controls: Concurrent bulk deletion via Promise.all and FastAPI DELETE endpoints to execute hard wipes of candidate database records.
+Technical claim verification
 
-🚀 Local Development Setup
+Edge-case interrogation generation
+
+Difficulty scaling based on Years of Experience (YOE)
+
+Domain-specific validation logic
+
+
+Example behavior: If distributed systems or AWS services are declared, the system may generate follow-up questions regarding consistency models, CAP theorem implications, or service-specific internal mechanics.
+
+
+---
+
+3. Multi-Tier LLM Failover Matrix
+
+The system is designed to maintain availability under API limitations.
+
+Tier	Function
+
+Primary Models	High-accuracy generation
+Secondary Models	Automatic latency and rate-limit fallback
+Offline Question Bank	Emergency zero-dependency fallback
+
+
+Failure scenarios handled:
+
+HTTP 429 rate limits
+
+API timeouts
+
+Service unavailability
+
+
+
+---
+
+4. JSON Defense Architecture
+
+Ensures structured and valid LLM outputs before application execution.
+
+Mechanisms:
+
+Standard JSON parsing
+
+Abstract Syntax Tree (AST) literal evaluation
+
+Regex-based bracket balancing
+
+Quote correction handling
+
+Nested schema validation
+
+
+This layer prevents malformed responses from affecting application stability.
+
+
+---
+
+5. Candidate Analytics Dashboard
+
+PostgreSQL-backed session history
+
+Timestamped transcript logs
+
+Composite evaluation metrics
+
+Behavioral anomaly flagging
+
+Hard-delete privacy endpoints
+
+
+
+---
+
+Security Engineering
+
+Prompt injection isolation using randomized delimiters
+
+Concurrency semaphores limiting parallel AI requests
+
+Structured payload validation prior to processing
+
+Strict schema enforcement for all model outputs
+
+Controlled failover routing logic
+
+
+
+---
+
+Local Development Setup
 
 Prerequisites
 
-Node.js (v18.x or higher)
+Node.js (v18 or higher)
 
-Python (3.9.x or higher)
+Python (3.9 or higher)
 
-PostgreSQL (Running locally on port 5432)
+PostgreSQL (running on port 5432)
 
-Google Gemini API Key
+Google Gemini API key
 
-The system requires three concurrent terminal instances to run the microservices simultaneously.
 
-1. Core Backend Setup (Terminal 1)
+Three terminal instances are required to run all services concurrently.
 
-Initialize the Node.js backend server handling database routing:
 
-Bash
+---
 
-# Navigate to the backend directory
+Terminal 1 — Core Backend (Node.js)
 
 cd backend
-
-# Install dependencies
-
 npm install
-
-# Start the Node server
-
 npm start
 
-The core backend will initialize on its designated port.
 
-2. AI Engine Setup (Terminal 2)
+---
 
-Initialize the Python FastAPI microservice handling LLM logic:
-
-Bash
-
-# Navigate to the AI engine directory
+Terminal 2 — AI Engine (FastAPI)
 
 cd ai-engine
-
-# Create and activate a virtual environment
-
 python -m venv venv
 
-# On Windows:
+Windows
 
 venv\Scripts\activate
 
-# On macOS/Linux:
+macOS / Linux
 
 source venv/bin/activate
 
-# Install core dependencies
-
 pip install fastapi uvicorn pydantic google-generativeai python-dotenv
-
-# Execute the AI Engine module
-
 python -m app.main
 
-The AI Engine will boot and expose its endpoints (default local port 8000).
+Default Port: 8000
 
-3. Frontend Client Setup (Terminal 3)
 
-Initialize the React/Vite user interface:
+---
 
-Bash
-
-# Navigate to the frontend directory
+Terminal 3 — Frontend (React + Vite)
 
 cd frontend
-
-# Install Node dependencies
-
 npm install
-
-# Start the Vite development server
-
 npm run dev
 
-The frontend client will boot and become accessible in the browser.
 
-📡 API Reference (AI Engine)
+---
 
-Method | Endpoint | Description | Payload Format
+AI Engine API Reference
 
-POST | /generate | Generates standard technical mock interview | { topic, difficulty, count, round_type }
+Method	Endpoint	Description
 
-POST | /evaluate_session | Standard technical transcript evaluation | { transcript }
+POST	/generate	Generate mock interview questions
+POST	/evaluate_session	Evaluate technical transcript
+POST	/generate_resume_questions	Initialize resume audit
+POST	/evaluate_resume_session	Resume-linked transcript evaluation
+POST	/chat	Context-aware follow-up interaction
+GET	/interviews	Retrieve saved sessions
+POST	/interviews	Persist completed session
+DELETE	/interviews/{id}	Delete specific session
+DELETE	/api/sessions/clear	Clear all user sessions
 
-POST | /generate_resume_questions | Initializes Forensic Resume Audit | { resume_text, domain, yoe, count }
 
-POST | /evaluate_resume_session | Cross-references transcript against resume | { transcript, domain, experience_level }
+All endpoints enforce structured JSON schema validation.
 
-POST | /chat | Context-aware post-interview AI routing | { message, context: {topic, score} }
 
-GET | /interviews | Fetch all saved candidate sessions | N/A
+---
 
-POST | /interviews | Persist a completed session | Session Object
+Engineering Principles
 
-DELETE | /interviews/{id} | Hard delete a specific session record | N/A
+Deterministic AI output handling
 
-DELETE | /api/sessions/clear | Wipes all database records for the user | N/A
+Production-grade failover design
 
-🛡 Security Engineering
+Microservice isolation
 
-Prompt Injection Mitigation: All user-supplied inputs (Resume text, Chat parameters) are encapsulated within randomized security delimiters (e.g., ===CANDIDATE_DATA_[UUID]===) to isolate passive data payloads from system execution instructions.
+Structured persistence strategy
 
-Concurrency Guards: Backend threading semaphores restrict the maximum number of concurrent Generative AI requests to prevent memory exhaustion and mitigate API billing overrun.
+Defensive JSON validation
 
-Gemini said Thank you. Give star ⭐ if you like...
 
-Developed by Aayush Thakur | Full Stack Tech Engineer
+
+---
+
+License
+
+Intended for educational use and structured technical evaluation purposes.
